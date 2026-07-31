@@ -166,7 +166,6 @@
             display: block;
         }
         
-        /* Desain Tombol Video & Slider */
         .video-controls {
             position: absolute;
             bottom: 15px;
@@ -182,9 +181,7 @@
             border-radius: 6px;
             border: 1px solid var(--gunmetal);
         }
-        .lore-video-container:hover .video-controls {
-            opacity: 1;
-        }
+        .lore-video-container:hover .video-controls { opacity: 1; }
         .control-btn {
             background: transparent;
             color: var(--text-light);
@@ -203,8 +200,6 @@
             color: var(--crimson-neon);
             background: rgba(255, 255, 255, 0.1);
         }
-        
-        /* Custom Styling Slider Volume */
         #volumeSlider {
             width: 80px;
             cursor: pointer;
@@ -306,6 +301,8 @@
             font-family: var(--font-body);
         }
         .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--crimson-neon); }
+        
+        /* Tombol Solid Global */
         .btn-solid {
             display: inline-block;
             width: 100%;
@@ -321,29 +318,123 @@
             text-align: center;
         }
         .btn-solid:hover { background: var(--crimson-neon); }
+        .btn-solid:disabled { background: #555; cursor: not-allowed; }
 
-        /* SECTION 6: RECRUITMENT */
-        #join {
-            background: var(--asphalt);
-            text-align: center;
+        /* SECTION 6: THE ARCADE (MINI GAMES) - FITUR BARU */
+        #arcade {
+            background-color: #080808;
+            border-top: 1px solid var(--gunmetal);
+            border-bottom: 1px solid var(--gunmetal);
         }
-        .recruitment-form {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: left;
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .game-card {
             background: #111;
-            padding: 40px;
-            border-left: 4px solid var(--crimson-neon);
+            border: 2px solid var(--gunmetal);
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
         }
+        .game-card:hover {
+            border-color: var(--crimson-neon);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 26, 26, 0.2);
+        }
+        .game-thumb {
+            height: 200px;
+            background-color: #222;
+            position: relative;
+            overflow: hidden;
+        }
+        .game-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+        .game-card:hover .game-thumb img { opacity: 1; transform: scale(1.05); }
+        .game-info {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+        .game-info h3 { font-size: 2rem; color: var(--crimson-neon); margin-bottom: 10px; }
+        .game-info p { font-size: 1rem; color: #aaa; margin-bottom: 25px; line-height: 1.6; }
+
+        /* MODAL ARCADE KUSTOM */
+        .arcade-modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; opacity: 0; visibility: hidden; transition: 0.3s ease; backdrop-filter: blur(10px);
+        }
+        .arcade-modal-overlay.show { opacity: 1; visibility: visible; }
+        .arcade-modal-box {
+            position: relative;
+            background: #0a0a0a;
+            padding: 20px;
+            border: 2px solid var(--crimson-neon);
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(255, 26, 26, 0.4);
+            transform: scale(0.8);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .arcade-modal-overlay.show .arcade-modal-box { transform: scale(1); }
+        .close-arcade-btn {
+            position: absolute; top: -20px; right: -20px;
+            background: var(--crimson-neon); color: #fff; border: none;
+            width: 45px; height: 45px; border-radius: 50%; font-family: var(--font-body);
+            font-weight: bold; cursor: pointer; font-size: 18px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: 0.3s;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .close-arcade-btn:hover { background: #fff; color: var(--crimson-neon); transform: rotate(90deg); }
+        
+        /* Canvas Styling dari Kode Minigame Anda */
+        #flappyCanvas {
+            border: 4px solid #222;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(139, 0, 0, 0.6);
+            background: #e08e36; 
+            cursor: pointer;
+            display: block; /* Mencegah margin misterius */
+        }
+
+        /* SECTION 7: RECRUITMENT */
+        #join { background: var(--asphalt); text-align: center; }
+        .recruitment-form {
+            max-width: 600px; margin: 0 auto; text-align: left; background: #111;
+            padding: 40px; border-left: 4px solid var(--crimson-neon);
+        }
+
+        /* CUSTOM ALERT MODAL STYLES (Submit Discord) */
+        .custom-alert-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center;
+            z-index: 10000; opacity: 0; visibility: hidden; transition: 0.3s ease; backdrop-filter: blur(5px);
+        }
+        .custom-alert-overlay.show { opacity: 1; visibility: visible; }
+        .custom-alert-box {
+            background: #111; border: 2px solid var(--crimson-neon); padding: 40px; text-align: center;
+            width: 90%; max-width: 450px; box-shadow: 0 0 30px rgba(255, 26, 26, 0.2);
+            transform: scale(0.7) translateY(-50px); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .custom-alert-overlay.show .custom-alert-box { transform: scale(1) translateY(0); }
+        .custom-alert-box h3 { font-size: 2.5rem; color: var(--crimson-neon); margin-bottom: 15px; }
+        .custom-alert-box p { font-size: 1.1rem; color: #ddd; margin-bottom: 25px; line-height: 1.6; }
+        .custom-alert-box .btn-solid { width: auto; padding: 10px 40px; }
 
         /* FOOTER */
         footer {
-            background: #050505;
-            padding: 30px;
-            text-align: center;
-            font-family: var(--font-typewriter);
-            font-size: 14px;
-            color: #666;
+            background: #050505; padding: 30px; text-align: center;
+            font-family: var(--font-typewriter); font-size: 14px; color: #666;
         }
 
         .fade-in { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
@@ -361,6 +452,7 @@
             <a href="#roster">Roster</a>
             <a href="#clubhouse">Clubhouse</a>
             <a href="#warehouse">Warehouse</a>
+            <a href="#arcade">Arcade</a> <!-- Link Baru -->
             <a href="#join">Join Us</a>
         </div>
     </nav>
@@ -368,6 +460,7 @@
     <!-- BAB 1: PROLOGUE -->
     <section id="hero" class="hero">
         <video autoplay muted loop class="bg-video">
+            <!-- Diubah: Dihapus "assets/" -->
             <source src="hero-bg.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -383,16 +476,13 @@
     <section id="lore" class="section-padding fade-in">
         <div class="lore-container">
             <div class="lore-video-container">
-                <!-- Video ID ditambahkan untuk diakses JavaScript -->
                 <video id="loreVideo" autoplay muted loop class="lore-video-element">
+                    <!-- Diubah: Dihapus "assets/" -->
                     <source src="lore-video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                
-                <!-- Panel Tombol Kontrol (Ditambah Pengaturan Volume) -->
                 <div class="video-controls">
                     <button id="muteBtn" class="control-btn" title="Mute/Unmute">🔇</button>
-                    <!-- Input Range untuk Volume -->
                     <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0" title="Atur Volume">
                     <button id="fullscreenBtn" class="control-btn" title="Fullscreen">⛶</button>
                 </div>
@@ -408,9 +498,10 @@
     <section id="roster" class="section-padding">
         <div class="text-center fade-in">
             <h2>THE TABLE</h2>
-            <p style="color: #888;">ALL START 6 MEMBER.</p>
+            <p style="color: #888;">All member Bloodline Motorcycle Club.</p>
         </div>
         <div class="roster-grid fade-in">
+            <!-- Diubah: Dihapus "assets/" di seluruh img src -->
             <div class="polaroid">
                 <img src="president.png" alt="President" class="polaroid-img">
                 <h3>PRESIDENT</h3>
@@ -451,18 +542,11 @@
             <p style="color: #888;">Markas besar, garasi, dan tempat berkumpulnya keluarga besar Bloodline MC.</p>
         </div>
         <div class="clubhouse-grid fade-in">
-            <div class="clubhouse-item">
-                <img src="ch1.png" alt="Clubhouse View 1" class="clubhouse-img">
-            </div>
-            <div class="clubhouse-item">
-                <img src="ch2.png" alt="Clubhouse View 2" class="clubhouse-img">
-            </div>
-            <div class="clubhouse-item">
-                <img src="ch3.png" alt="Clubhouse View 3" class="clubhouse-img">
-            </div>
-            <div class="clubhouse-item">
-                <img src="ch4.png" alt="Clubhouse View 4" class="clubhouse-img">
-            </div>
+            <!-- Diubah: Dihapus "assets/" di seluruh img src -->
+            <div class="clubhouse-item"><img src="ch1.png" alt="View 1" class="clubhouse-img"></div>
+            <div class="clubhouse-item"><img src="ch2.png" alt="View 2" class="clubhouse-img"></div>
+            <div class="clubhouse-item"><img src="ch3.png" alt="View 3" class="clubhouse-img"></div>
+            <div class="clubhouse-item"><img src="ch4.png" alt="View 4" class="clubhouse-img"></div>
         </div>
     </section>
 
@@ -486,7 +570,42 @@
         </div>
     </section>
 
-    <!-- BAB 6: RECRUITMENT -->
+    <!-- BAB 6: THE ARCADE (MINI GAMES SECTION) -->
+    <section id="arcade" class="section-padding fade-in">
+        <div class="text-center">
+            <h2>THE <span class="text-crimson">ARCADE</span></h2>
+            <p style="color: #888;">Habiskan waktu di jalanan dengan mini-games retro persembahan Bloodline MC.</p>
+        </div>
+        
+        <div class="games-grid">
+            <!-- GAME 1: Sandy Shores Run -->
+            <div class="game-card">
+                <div class="game-thumb">
+                    <!-- Kode yang sudah diperbaiki -->
+                    <img src="image_692331.jpg" alt="Sandy Shores Run Thumb">
+                </div>
+                <div class="game-info">
+                    <h3>SANDY SHORES RUN</h3>
+                    <p>Tarik gas, hindari rintangan, dan cetak skor tertinggi. Buktikan refleksmu dari kelas Prospect hingga level President.</p>
+                    <button class="btn-solid" onclick="openGame('sandyShores')">PLAY NOW</button>
+                </div>
+            </div>
+
+            <!-- GAME 2: Placeholder / Coming Soon -->
+            <div class="game-card">
+                <div class="game-thumb" style="display:flex; justify-content:center; align-items:center; color:#555;">
+                    <span style="font-size: 50px; font-family: var(--font-head);">?</span>
+                </div>
+                <div class="game-info">
+                    <h3 style="color: #666;">COMING SOON <span style="font-size: 14px;">(COMING SOON)</span></h3>
+                    <p>Bertahan dari serangan rival di dalam bar. Fitur game ini masih dalam tahap perakitan oleh mekanik kami.</p>
+                    <button class="btn-solid" disabled>LOCKED</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BAB 7: RECRUITMENT -->
     <section id="join" class="section-padding fade-in">
         <div class="text-center">
             <h2>EARN YOUR CUT</h2>
@@ -511,14 +630,34 @@
         </div>
     </section>
 
+    <!-- MODAL POP-UP UNTUK MINI GAME -->
+    <div id="arcadeModalOverlay" class="arcade-modal-overlay">
+        <div class="arcade-modal-box">
+            <button class="close-arcade-btn" onclick="closeGame()">X</button>
+            
+            <!-- Area Canvas Game -->
+            <canvas id="flappyCanvas" width="320" height="480"></canvas>
+        </div>
+    </div>
+
+    <!-- CUSTOM ALERT MODAL UNTUK DISCORD -->
+    <div id="customAlertOverlay" class="custom-alert-overlay">
+        <div class="custom-alert-box">
+            <h3 id="customAlertTitle">MESSAGE</h3>
+            <p id="customAlertMessage">Isi pesan ada di sini.</p>
+            <button id="customAlertBtn" class="btn-solid">OK, GOT IT</button>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 Bloodline MC Los Santos. All Rights Reserved.</p>
         <p style="margin-top: 10px;">Discord: https://discord.gg/6WxS4X2Eha | In-Game Rules Apply.</p>
     </footer>
 
-    <!-- JAVASCRIPT & DISCORD WEBHOOK INTEGRATION -->
+    <!-- JAVASCRIPT GABUNGAN -->
     <script>
+        // ================= EFEK SCROLL & NAVIGASI =================
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -538,9 +677,7 @@
             });
         }, appearOptions);
 
-        faders.forEach(fader => {
-            appearOnScroll.observe(fader);
-        });
+        faders.forEach(fader => { appearOnScroll.observe(fader); });
 
         // ================= KONTROL VIDEO THE LORE =================
         const loreVideo = document.getElementById('loreVideo');
@@ -548,12 +685,9 @@
         const volumeSlider = document.getElementById('volumeSlider');
         const fullscreenBtn = document.getElementById('fullscreenBtn');
 
-        let lastVolume = 1; // Menyimpan histori volume saat suara di-mute
-
-        // Sesuaikan slider dengan kondisi awal video (karena HTML mute, nilai slider = 0)
+        let lastVolume = 1;
         volumeSlider.value = loreVideo.muted ? 0 : loreVideo.volume;
 
-        // Logika Klik Tombol Ikon Suara
         muteBtn.addEventListener('click', () => {
             if (loreVideo.muted || loreVideo.volume === 0) {
                 loreVideo.muted = false;
@@ -569,30 +703,307 @@
             }
         });
 
-        // Logika Geser Slider Suara
         volumeSlider.addEventListener('input', (e) => {
             const vol = parseFloat(e.target.value);
             loreVideo.volume = vol;
-            
             if (vol === 0) {
                 loreVideo.muted = true;
                 muteBtn.innerText = '🔇';
             } else {
                 loreVideo.muted = false;
                 muteBtn.innerText = '🔊';
-                lastVolume = vol; // simpan histori tinggi suara
+                lastVolume = vol;
             }
         });
 
-        // Logika Layar Penuh (Fullscreen)
         fullscreenBtn.addEventListener('click', () => {
-            if (loreVideo.requestFullscreen) {
-                loreVideo.requestFullscreen();
-            } else if (loreVideo.webkitRequestFullscreen) { /* Safari */
-                loreVideo.webkitRequestFullscreen();
-            } else if (loreVideo.msRequestFullscreen) { /* IE11 */
-                loreVideo.msRequestFullscreen();
+            if (loreVideo.requestFullscreen) { loreVideo.requestFullscreen(); } 
+            else if (loreVideo.webkitRequestFullscreen) { loreVideo.webkitRequestFullscreen(); } 
+            else if (loreVideo.msRequestFullscreen) { loreVideo.msRequestFullscreen(); }
+        });
+
+
+        // ================= SISTEM MINI GAME (SANDY SHORES RUN) =================
+        const arcadeModalOverlay = document.getElementById('arcadeModalOverlay');
+        const canvas = document.getElementById("flappyCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let isGameModalOpen = false;
+        let gameAnimationId; 
+
+        // Variabel Game Anda
+        const playerImg = new Image();
+        // Diubah: Dihapus "assets/" dan disesuaikan dengan file gambar terbaru Anda
+        playerImg.src = 'image_692331.jpg'; 
+
+        let gameState = 'MENU'; 
+        let countdownTimer = 0;
+        let bgX = 0, fgX = 0, flashAlpha = 0; 
+        
+        let bird = { x: 50, y: 150, width: 40, height: 40, gravity: 0.55, lift: -7.5, velocity: 0 };
+        let pipes = [];
+        let pipeWidth = 45, pipeGap = 160; 
+        let frameCount = 0, score = 0, nextPipeFrame = 0; 
+        let gameSpeed = 2;
+        let difficultyText = "PROSPECT"; 
+        let levelColor = "#a9a9a9"; 
+
+        const menuButton = { x: canvas.width / 2 - 90, y: 320, width: 180, height: 45 };
+        const retryButton = { x: canvas.width / 2 - 80, y: canvas.height / 2 + 75, width: 160, height: 40 };
+
+        document.addEventListener("keydown", function(e) {
+            if (isGameModalOpen && e.code === "Space") {
+                e.preventDefault(); 
+                if (gameState === 'PLAYING') {
+                    bird.velocity = bird.lift;
+                }
             }
+        });
+
+        canvas.addEventListener("click", function(e) {
+            if (!isGameModalOpen) return;
+            let rect = canvas.getBoundingClientRect();
+            let mouseX = e.clientX - rect.left;
+            let mouseY = e.clientY - rect.top;
+
+            if (gameState === 'MENU') {
+                if (mouseX >= menuButton.x && mouseX <= menuButton.x + menuButton.width &&
+                    mouseY >= menuButton.y && mouseY <= menuButton.y + menuButton.height) {
+                    startCountdown();
+                }
+            } else if (gameState === 'GAMEOVER') {
+                if (mouseX >= retryButton.x && mouseX <= retryButton.x + retryButton.width &&
+                    mouseY >= retryButton.y && mouseY <= retryButton.y + retryButton.height) {
+                    startCountdown();
+                }
+            } else if (gameState === 'PLAYING') {
+                bird.velocity = bird.lift;
+            }
+        });
+
+        function resetGameData() {
+            bird.y = canvas.height / 2; bird.velocity = 0; pipes = []; score = 0; frameCount = 0; flashAlpha = 0; 
+            gameSpeed = 2.5; pipeGap = 160; difficultyText = "PROSPECT"; levelColor = "#a9a9a9";
+        }
+        function startCountdown() { resetGameData(); gameState = 'COUNTDOWN'; countdownTimer = 180; }
+        function triggerGameOver() { gameState = 'GAMEOVER'; flashAlpha = 1; }
+
+        function spawnPipe() {
+            let minHeight = 60;
+            let maxHeight = canvas.height - pipeGap - 60;
+            let height = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
+            pipes.push({ x: canvas.width, top: height, bottom: canvas.height - height - pipeGap, passed: false });
+        }
+
+        function updateDifficulty() {
+            if (score >= 20) { gameSpeed = 5; pipeGap = 115; difficultyText = "PRESIDENT"; levelColor = "#e74c3c"; } 
+            else if (score >= 10) { gameSpeed = 4; pipeGap = 130; difficultyText = "ENFORCER"; levelColor = "#e67e22"; } 
+            else if (score >= 5) { gameSpeed = 3; pipeGap = 145; difficultyText = "PATCHED"; levelColor = "#f1c40f"; }
+        }
+
+        function updateGame() {
+            if (gameState !== 'GAMEOVER') {
+                bgX -= gameSpeed * 0.2; if (bgX <= -canvas.width) bgX = 0; 
+                fgX -= gameSpeed; if (fgX <= -canvas.width) fgX = 0;
+            }
+
+            if (gameState === 'MENU') {
+                bird.y = (canvas.height / 2) + Math.sin(frameCount * 0.05) * 15; frameCount++;
+            } else if (gameState === 'COUNTDOWN') {
+                bird.y = (canvas.height / 2) + Math.sin(frameCount * 0.1) * 5; 
+                countdownTimer--;
+                if (countdownTimer <= 0) {
+                    gameState = 'PLAYING'; nextPipeFrame = frameCount + 40; bird.velocity = -4; 
+                }
+                frameCount++;
+            } else if (gameState === 'PLAYING') {
+                bird.velocity += bird.gravity; bird.y += bird.velocity;
+                if (bird.y + bird.height >= canvas.height - 20) { bird.y = canvas.height - 20 - bird.height; triggerGameOver(); }
+                if (bird.y <= -20) { bird.y = -20; bird.velocity = 0; }
+
+                if (frameCount >= nextPipeFrame) {
+                    spawnPipe();
+                    let randomHorizontalDistance = Math.floor(Math.random() * 120) + 220;
+                    let framesToWait = Math.floor(randomHorizontalDistance / gameSpeed);
+                    nextPipeFrame = frameCount + framesToWait;
+                }
+
+                for (let i = pipes.length - 1; i >= 0; i--) {
+                    pipes[i].x -= gameSpeed;
+                    let hitX = 4; let hitY = 4;
+
+                    if (bird.x + hitX < pipes[i].x + pipeWidth && bird.x + bird.width - hitX > pipes[i].x &&
+                        (bird.y + hitY < pipes[i].top || bird.y + bird.height - hitY > canvas.height - pipes[i].bottom)) { triggerGameOver(); }
+
+                    if (!pipes[i].passed && pipes[i].x + pipeWidth < bird.x) { score++; pipes[i].passed = true; updateDifficulty(); }
+                    if (pipes[i].x + pipeWidth < 0) { pipes.splice(i, 1); }
+                }
+                frameCount++;
+            }
+            if (flashAlpha > 0) flashAlpha -= 0.05;
+        }
+
+        function drawMountains(offsetX) {
+            ctx.fillStyle = "#2c1515"; ctx.beginPath(); ctx.moveTo(offsetX, canvas.height - 20);
+            ctx.lineTo(offsetX + 80, canvas.height - 110); ctx.lineTo(offsetX + 140, canvas.height - 70);
+            ctx.lineTo(offsetX + 220, canvas.height - 140); ctx.lineTo(offsetX + canvas.width, canvas.height - 80);
+            ctx.lineTo(offsetX + canvas.width, canvas.height - 20); ctx.lineTo(offsetX, canvas.height - 20); ctx.fill();
+        }
+
+        function drawBackground() {
+            let grd = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            grd.addColorStop(0, "#732b14"); grd.addColorStop(0.6, "#c46c23"); grd.addColorStop(1, "#8e2b00");
+            ctx.fillStyle = grd; ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.beginPath(); ctx.arc(canvas.width / 2, canvas.height / 1.7, 50, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(255, 220, 150, 0.2)"; ctx.fill();
+            
+            drawMountains(bgX); drawMountains(bgX + canvas.width);
+
+            ctx.fillStyle = "#0c0c0c"; ctx.fillRect(fgX, canvas.height - 20, canvas.width, 20);
+            ctx.fillRect(fgX + canvas.width, canvas.height - 20, canvas.width, 20);
+            
+            ctx.fillStyle = "#8b0000"; ctx.fillRect(0, canvas.height - 22, canvas.width, 2);
+        }
+
+        function drawGameElements() {
+            for (let i = 0; i < pipes.length; i++) {
+                let grdPipe = ctx.createLinearGradient(pipes[i].x, 0, pipes[i].x + pipeWidth, 0);
+                grdPipe.addColorStop(0, "#3e2723"); grdPipe.addColorStop(0.8, "#5d4037"); grdPipe.addColorStop(1, "#2e1a17");
+                ctx.fillStyle = grdPipe;
+                
+                ctx.fillRect(pipes[i].x, 0, pipeWidth, pipes[i].top); 
+                ctx.fillRect(pipes[i].x, canvas.height - pipes[i].bottom, pipeWidth, pipes[i].bottom); 
+
+                ctx.fillStyle = "#111";
+                ctx.fillRect(pipes[i].x - 2, pipes[i].top - 10, pipeWidth + 4, 10);
+                ctx.fillRect(pipes[i].x - 2, canvas.height - pipes[i].bottom, pipeWidth + 4, 10);
+            }
+
+            if (playerImg.complete && playerImg.naturalWidth !== 0) {
+                ctx.save();
+                ctx.translate(bird.x + bird.width / 2, bird.y + bird.height / 2);
+                
+                let rotation = 0;
+                if (gameState === 'PLAYING' || gameState === 'GAMEOVER') {
+                    rotation = Math.min(Math.PI / 6, Math.max(-Math.PI / 6, (bird.velocity * 0.06)));
+                }
+                ctx.rotate(rotation);
+                
+                if (gameState !== 'GAMEOVER') { ctx.shadowColor = "rgba(220, 20, 60, 0.7)"; ctx.shadowBlur = 15; }
+                
+                ctx.drawImage(playerImg, -bird.width / 2, -bird.height / 2, bird.width, bird.height);
+                ctx.restore(); 
+            } else {
+                ctx.fillStyle = "black"; ctx.fillRect(bird.x, bird.y, bird.width, bird.height);
+            }
+        }
+
+        function drawModernUI() {
+            ctx.fillStyle = "rgba(10, 10, 10, 0.65)"; ctx.beginPath(); ctx.roundRect(10, 10, 110, 48, 8); ctx.fill();
+            ctx.fillStyle = "#dc143c"; ctx.beginPath(); ctx.roundRect(10, 10, 4, 48, {tl: 8, bl: 8}); ctx.fill();
+            ctx.fillStyle = "#fff"; ctx.font = "16px 'Arial Black'"; ctx.textAlign = "left";
+            ctx.shadowColor = "rgba(0,0,0,0.8)"; ctx.shadowBlur = 4; ctx.fillText(score, 25, 30);
+            ctx.fillStyle = levelColor; ctx.font = "10px Arial"; ctx.fillText(difficultyText, 25, 48); ctx.shadowBlur = 0; 
+        }
+
+        function drawMenuOverlay() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.75)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.textAlign = "center";
+            
+            let pulse = Math.sin(frameCount * 0.05) * 2;
+            ctx.fillStyle = "#dc143c"; ctx.font = "italic 36px Impact"; ctx.shadowColor = "#8b0000"; ctx.shadowBlur = 15;
+            ctx.fillText("BLOODLINE MC", canvas.width / 2, 140 + pulse);
+            
+            ctx.fillStyle = "#fff"; ctx.font = "14px 'Arial Black'"; ctx.shadowBlur = 5;
+            ctx.fillText("SANDY SHORES RUN", canvas.width / 2, 170 + pulse); ctx.shadowBlur = 0;
+
+            ctx.font = "14px Arial"; ctx.fillStyle = "#ccc";
+            ctx.fillText("Tarik gas dan hindari tiang kayu.", canvas.width / 2, 230);
+            ctx.fillText("Buktikan dirimu pantas memakai", canvas.width / 2, 250);
+            ctx.fillText("patch Bloodline di jalanan ini.", canvas.width / 2, 270);
+
+            ctx.fillStyle = "rgba(220, 20, 60, 0.9)"; ctx.beginPath();
+            ctx.roundRect(menuButton.x, menuButton.y, menuButton.width, menuButton.height, 22); ctx.fill();
+            
+            ctx.fillStyle = "#fff"; ctx.font = "14px 'Arial Black'"; ctx.fillText("PLAY GAME", canvas.width / 2, menuButton.y + 28);
+        }
+
+        function drawGame() {
+            drawBackground();
+            drawGameElements();
+
+            if (gameState === 'MENU') { drawMenuOverlay(); } 
+            else if (gameState === 'COUNTDOWN') {
+                let displayNum = Math.ceil(countdownTimer / 60);
+                ctx.fillStyle = "rgba(0,0,0,0.5)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#fff"; ctx.font = "120px Impact"; ctx.textAlign = "center";
+                ctx.shadowColor = "#dc143c"; ctx.shadowBlur = 20;
+                
+                let scale = 1 + (countdownTimer % 60) / 120; 
+                ctx.save(); ctx.translate(canvas.width / 2, canvas.height / 2 + 40); ctx.scale(scale, scale);
+                ctx.fillText(displayNum, 0, 0); ctx.restore();
+            } 
+            else if (gameState === 'PLAYING') { drawModernUI(); } 
+            else if (gameState === 'GAMEOVER') {
+                drawModernUI();
+                ctx.fillStyle = "rgba(10, 5, 5, 0.85)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.textAlign = "center"; ctx.fillStyle = "#dc143c"; ctx.font = "italic 42px Impact";
+                ctx.shadowColor = "#8b0000"; ctx.shadowBlur = 15;
+                ctx.fillText("RIDE OVER", canvas.width / 2, canvas.height / 2 - 35); ctx.shadowBlur = 0; 
+                
+                ctx.fillStyle = "#fff"; ctx.font = "16px 'Arial Black'"; ctx.fillText("SCORE: " + score, canvas.width / 2, canvas.height / 2 + 5);
+                ctx.fillStyle = levelColor; ctx.font = "12px Arial"; ctx.fillText("RANK: " + difficultyText, canvas.width / 2, canvas.height / 2 + 25);
+
+                ctx.fillStyle = "rgba(220, 20, 60, 0.9)"; ctx.beginPath();
+                ctx.roundRect(retryButton.x, retryButton.y, retryButton.width, retryButton.height, 20); ctx.fill();
+                ctx.fillStyle = "#fff"; ctx.font = "13px 'Arial Black'"; ctx.fillText("MAIN LAGI", canvas.width / 2, retryButton.y + 25);
+            }
+
+            if (flashAlpha > 0) { ctx.fillStyle = `rgba(220, 20, 60, ${flashAlpha})`; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+        }
+
+        function gameLoop() {
+            if (!isGameModalOpen) return; 
+            updateGame();
+            drawGame();
+            gameAnimationId = requestAnimationFrame(gameLoop);
+        }
+
+        function openGame(gameId) {
+            if (gameId === 'sandyShores') {
+                isGameModalOpen = true;
+                arcadeModalOverlay.classList.add('show');
+                resetGameData();
+                gameState = 'MENU';
+                gameLoop(); 
+            }
+        }
+
+        function closeGame() {
+            isGameModalOpen = false;
+            arcadeModalOverlay.classList.remove('show');
+            cancelAnimationFrame(gameAnimationId); 
+        }
+
+
+        // ================= CUSTOM ALERT SYSTEM (UNTUK DISCORD) =================
+        const customAlertOverlay = document.getElementById('customAlertOverlay');
+        const customAlertTitle = document.getElementById('customAlertTitle');
+        const customAlertMessage = document.getElementById('customAlertMessage');
+        const customAlertBtn = document.getElementById('customAlertBtn');
+
+        function showCustomAlert(title, message) {
+            customAlertTitle.innerText = title;
+            customAlertMessage.innerText = message;
+            customAlertOverlay.classList.add('show');
+        }
+
+        function closeCustomAlert() { customAlertOverlay.classList.remove('show'); }
+
+        customAlertBtn.addEventListener('click', closeCustomAlert);
+        customAlertOverlay.addEventListener('click', function(e) {
+            if (e.target === customAlertOverlay) { closeCustomAlert(); }
         });
 
         // ================= DISCORD WEBHOOK INTEGRATION =================
@@ -606,7 +1017,7 @@
             const submitBtn = document.getElementById('submitBtn');
 
             const discordPayload = {
-                username: "BLOODLINE CAPROS", // Nama bot pengirim kustom
+                username: "BLOODLINE CAPROS",
                 content: "@here Ada pendaftaran Prospect baru masuk ke meja petinggi!",
                 embeds: [{
                     title: "🏍️ BLOODLINE MC - NEW RECRUITMENT",
@@ -621,7 +1032,7 @@
             };
 
             submitBtn.disabled = true;
-            submitBtn.innerText = "MENGIRIM KE DISCORD...";
+            submitBtn.innerText = "MENGIRIM...";
 
             fetch(webhookURL, {
                 method: 'POST',
@@ -630,15 +1041,15 @@
             })
             .then(response => {
                 if(response.ok) {
-                    alert("Aplikasi berhasil dikirim ke tabel petinggi Bloodline MC!");
+                    showCustomAlert("RESPECT EARNED", "Aplikasi berhasil diletakkan di tabel petinggi Bloodline MC. Tunggu kabar dari kami di jalanan.");
                     document.getElementById('recruitmentForm').reset();
                 } else {
-                    alert("Gagal mengirim data ke Discord. Status: " + response.status);
+                    showCustomAlert("SYSTEM REJECTED", "Gagal mengirim data ke sistem. Status Kode: " + response.status);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert("Terjadi kesalahan jaringan saat menghubungi Discord.");
+                showCustomAlert("NETWORK DEAD", "Terjadi kesalahan koneksi jaringan saat mencoba menghubungi server.");
             })
             .finally(() => {
                 submitBtn.disabled = false;
