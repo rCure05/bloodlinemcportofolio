@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloodline MC | Los Santos Original</title>
-    <!-- Import Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Courier+Prime&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@700;900&family=Courier+Prime&family=Inter:wght@300;400;700&family=VT323&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -17,6 +16,8 @@
             --font-head: 'Bebas Neue', cursive;
             --font-body: 'Inter', sans-serif;
             --font-typewriter: 'Courier Prime', monospace;
+            --font-cinzel: 'Cinzel', serif;
+            --font-vt: 'VT323', monospace;
         }
 
         * {
@@ -67,7 +68,7 @@
         }
         .nav-links a:hover { color: var(--crimson-neon); }
 
-        /* SECTION 1: HERO (hero-bg.mp4) */
+        /* SECTION 1: HERO */
         .hero {
             height: 100vh;
             display: flex;
@@ -139,7 +140,7 @@
             20%, 24%, 55% { box-shadow: none; }
         }
 
-        /* SECTION 2: THE LORE (lore-video.mp4) DENGAN KONTROL */
+        /* SECTION 2: THE LORE */
         .section-padding { padding: 100px 10%; }
         .lore-container {
             display: flex;
@@ -210,7 +211,7 @@
         .lore-text h2 { font-size: 4rem; color: var(--crimson-neon); margin-bottom: 20px; }
         .lore-text p { font-size: 1.1rem; line-height: 1.8; color: #bbb; }
 
-        /* SECTION 3: THE ROSTER (.png) */
+        /* SECTION 3: THE ROSTER */
         #roster { background-color: #080808; border-top: 1px solid var(--gunmetal); }
         .text-center { text-align: center; margin-bottom: 50px; }
         .text-center h2 { font-size: 4rem; color: var(--crimson-neon); }
@@ -302,7 +303,6 @@
         }
         .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--crimson-neon); }
         
-        /* Tombol Solid Global */
         .btn-solid {
             display: inline-block;
             width: 100%;
@@ -320,7 +320,7 @@
         .btn-solid:hover { background: var(--crimson-neon); }
         .btn-solid:disabled { background: #555; cursor: not-allowed; }
 
-        /* SECTION 6: THE ARCADE (MINI GAMES) - FITUR BARU */
+        /* SECTION 6: THE ARCADE */
         #arcade {
             background-color: #080808;
             border-top: 1px solid var(--gunmetal);
@@ -354,7 +354,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0.7;
+            opacity: 0.8;
             transition: 0.3s;
         }
         .game-card:hover .game-thumb img { opacity: 1; transform: scale(1.05); }
@@ -368,7 +368,7 @@
         .game-info h3 { font-size: 2rem; color: var(--crimson-neon); margin-bottom: 10px; }
         .game-info p { font-size: 1rem; color: #aaa; margin-bottom: 25px; line-height: 1.6; }
 
-        /* MODAL ARCADE KUSTOM */
+        /* MODAL ARCADE UMUM */
         .arcade-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.95);
@@ -394,18 +394,58 @@
             font-weight: bold; cursor: pointer; font-size: 18px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: 0.3s;
             display: flex; justify-content: center; align-items: center;
+            z-index: 20;
         }
         .close-arcade-btn:hover { background: #fff; color: var(--crimson-neon); transform: rotate(90deg); }
         
-        /* Canvas Styling dari Kode Minigame Anda */
         #flappyCanvas {
             border: 4px solid #222;
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(139, 0, 0, 0.6);
             background: #e08e36; 
             cursor: pointer;
-            display: block; /* Mencegah margin misterius */
+            display: block;
         }
+
+        /* STYLING KHUSUS MODAL SNAKE GAME */
+        .snake-modal-content {
+            background: linear-gradient(145deg, #151515, #0a0a0a);
+            padding: 15px 10px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 330px;
+        }
+        .snake-screen {
+            background-color: #0f0505; border: 3px solid #330000; border-radius: 6px;
+            width: 300px; height: 300px; position: relative; display: flex; justify-content: center; align-items: center;
+        }
+        .snake-screen canvas { display: block; }
+        .snake-score-board {
+            display: flex; justify-content: space-between; width: 300px; margin-top: 10px;
+            font-family: var(--font-vt); font-size: 18px; color: #ccc;
+        }
+        .snake-score-board span { color: #ff1e1e; }
+        .snake-controls {
+            display: grid; grid-template-columns: repeat(3, 50px); grid-gap: 6px; margin-top: 12px; justify-content: center;
+        }
+        .snake-btn {
+            background: #1a1a1a; color: #ff1e1e; border: 1px solid #550000; height: 42px; border-radius: 6px;
+            font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; user-select: none;
+        }
+        .snake-btn:active { background: #ff1e1e; color: #000; transform: translateY(2px); }
+        .snake-btn-up { grid-column: 2; }
+        .snake-btn-left { grid-column: 1; grid-row: 2; }
+        .snake-btn-right { grid-column: 3; grid-row: 2; }
+        .snake-btn-down { grid-column: 2; grid-row: 2; }
+        
+        .snake-game-message {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(10, 5, 5, 0.95); display: flex; flex-direction: column;
+            justify-content: center; align-items: center; text-align: center; padding: 15px; z-index: 10;
+        }
+        .hidden { display: none !important; }
 
         /* SECTION 7: RECRUITMENT */
         #join { background: var(--asphalt); text-align: center; }
@@ -414,7 +454,7 @@
             padding: 40px; border-left: 4px solid var(--crimson-neon);
         }
 
-        /* CUSTOM ALERT MODAL STYLES (Submit Discord) */
+        /* CUSTOM ALERT MODAL */
         .custom-alert-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center;
@@ -443,7 +483,6 @@
 </head>
 <body>
 
-    <!-- NAVIGASI -->
     <nav id="navbar">
         <div class="logo"><span class="text-crimson">BLOODLINE</span> MC</div>
         <div class="nav-links">
@@ -452,15 +491,13 @@
             <a href="#roster">Roster</a>
             <a href="#clubhouse">Clubhouse</a>
             <a href="#warehouse">Warehouse</a>
-            <a href="#arcade">Arcade</a> <!-- Link Baru -->
+            <a href="#arcade">Arcade</a>
             <a href="#join">Join Us</a>
         </div>
     </nav>
 
-    <!-- BAB 1: PROLOGUE -->
     <section id="hero" class="hero">
         <video autoplay muted loop class="bg-video">
-            <!-- Diubah: Dihapus "assets/" -->
             <source src="hero-bg.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -472,12 +509,10 @@
         </div>
     </section>
 
-    <!-- BAB 2: THE LORE -->
     <section id="lore" class="section-padding fade-in">
         <div class="lore-container">
             <div class="lore-video-container">
                 <video id="loreVideo" autoplay muted loop class="lore-video-element">
-                    <!-- Diubah: Dihapus "assets/" -->
                     <source src="lore-video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -494,14 +529,12 @@
         </div>
     </section>
 
-    <!-- BAB 3: THE ROSTER -->
     <section id="roster" class="section-padding">
         <div class="text-center fade-in">
             <h2>THE TABLE</h2>
             <p style="color: #888;">All member Bloodline Motorcycle Club.</p>
         </div>
         <div class="roster-grid fade-in">
-            <!-- Diubah: Dihapus "assets/" di seluruh img src -->
             <div class="polaroid">
                 <img src="president.png" alt="President" class="polaroid-img">
                 <h3>PRESIDENT</h3>
@@ -518,31 +551,29 @@
                 <p>Ziel Suhadi</p>
             </div>
             <div class="polaroid">
-                <img src="treasury1.png" alt="Enforcer" class="polaroid-img">
+                <img src="treasury1.png" alt="Treasury" class="polaroid-img">
                 <h3>TREASURY</h3>
                 <p>Kucluk Da Loca B</p>
             </div>
             <div class="polaroid">
-                <img src="treasury2.png" alt="Enforcer" class="polaroid-img">
+                <img src="treasury2.png" alt="Treasury" class="polaroid-img">
                 <h3>TREASURY</h3>
                 <p>Sean Du Noir</p>
             </div>
             <div class="polaroid">
-                <img src="secretary.png" alt="Enforcer" class="polaroid-img">
+                <img src="secretary.png" alt="Secretary" class="polaroid-img">
                 <h3>SECRETARY</h3>
                 <p>YORU</p>
             </div>
         </div>
     </section>
 
-    <!-- BAB 4: CLUBHOUSE GALLERY -->
     <section id="clubhouse" class="section-padding fade-in">
         <div class="text-center">
             <h2>CLUBHOUSE <span class="text-crimson">GALLERY</span></h2>
             <p style="color: #888;">Markas besar, garasi, dan tempat berkumpulnya keluarga besar Bloodline MC.</p>
         </div>
         <div class="clubhouse-grid fade-in">
-            <!-- Diubah: Dihapus "assets/" di seluruh img src -->
             <div class="clubhouse-item"><img src="ch1.png" alt="View 1" class="clubhouse-img"></div>
             <div class="clubhouse-item"><img src="ch2.png" alt="View 2" class="clubhouse-img"></div>
             <div class="clubhouse-item"><img src="ch3.png" alt="View 3" class="clubhouse-img"></div>
@@ -550,7 +581,6 @@
         </div>
     </section>
 
-    <!-- BAB 5: WAREHOUSE & OPERATIONS -->
     <section id="warehouse" class="section-padding fade-in">
         <div class="ops-container">
             <div class="ops-info">
@@ -570,7 +600,6 @@
         </div>
     </section>
 
-    <!-- BAB 6: THE ARCADE (MINI GAMES SECTION) -->
     <section id="arcade" class="section-padding fade-in">
         <div class="text-center">
             <h2>THE <span class="text-crimson">ARCADE</span></h2>
@@ -578,11 +607,9 @@
         </div>
         
         <div class="games-grid">
-            <!-- GAME 1: Sandy Shores Run -->
             <div class="game-card">
                 <div class="game-thumb">
-                    <!-- Kode yang sudah diperbaiki -->
-                    <img src="image_692331.jpg" alt="Sandy Shores Run Thumb">
+                    <img src="game1.jpg" alt="Sandy Shores Run Thumb">
                 </div>
                 <div class="game-info">
                     <h3>SANDY SHORES RUN</h3>
@@ -591,21 +618,19 @@
                 </div>
             </div>
 
-            <!-- GAME 2: Placeholder / Coming Soon -->
             <div class="game-card">
-                <div class="game-thumb" style="display:flex; justify-content:center; align-items:center; color:#555;">
-                    <span style="font-size: 50px; font-family: var(--font-head);">?</span>
+                <div class="game-thumb">
+                    <img src="game2.jpg" alt="Bloodline Snake Thumb">
                 </div>
                 <div class="game-info">
-                    <h3 style="color: #666;">COMING SOON <span style="font-size: 14px;">(COMING SOON)</span></h3>
-                    <p>Bertahan dari serangan rival di dalam bar. Fitur game ini masih dalam tahap perakitan oleh mekanik kami.</p>
-                    <button class="btn-solid" disabled>LOCKED</button>
+                    <h3>BLOODLINE SNAKE</h3>
+                    <p>Navigasi rute patroli jalanan, kumpulkan poin emas, dan jangan sampai menabrak dinding atau ekor sendiri.</p>
+                    <button class="btn-solid" onclick="openGame('snakeGame')">PLAY NOW</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- BAB 7: RECRUITMENT -->
     <section id="join" class="section-padding fade-in">
         <div class="text-center">
             <h2>EARN YOUR CUT</h2>
@@ -630,17 +655,38 @@
         </div>
     </section>
 
-    <!-- MODAL POP-UP UNTUK MINI GAME -->
     <div id="arcadeModalOverlay" class="arcade-modal-overlay">
         <div class="arcade-modal-box">
             <button class="close-arcade-btn" onclick="closeGame()">X</button>
-            
-            <!-- Area Canvas Game -->
             <canvas id="flappyCanvas" width="320" height="480"></canvas>
         </div>
     </div>
 
-    <!-- CUSTOM ALERT MODAL UNTUK DISCORD -->
+    <div id="snakeModalOverlay" class="arcade-modal-overlay">
+        <div class="arcade-modal-box">
+            <button class="close-arcade-btn" onclick="closeSnakeGame()">X</button>
+            <div class="snake-modal-content">
+                <div class="snake-screen">
+                    <canvas id="snakeCanvas" width="300" height="300"></canvas>
+                    <div id="snakeGameMessage" class="snake-game-message">
+                        </div>
+                </div>
+
+                <div class="snake-score-board">
+                    <div>RIDER: <span id="snakeActiveRider">-</span></div>
+                    <div>SKOR: <span id="snakeScore">0</span></div>
+                </div>
+
+                <div class="snake-controls">
+                    <button class="snake-btn snake-btn-up" id="snakeBtnUp">▲</button>
+                    <button class="snake-btn snake-btn-left" id="snakeBtnLeft">◀</button>
+                    <button class="snake-btn snake-btn-down" id="snakeBtnDown">▼</button>
+                    <button class="snake-btn snake-btn-right" id="snakeBtnRight">▶</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="customAlertOverlay" class="custom-alert-overlay">
         <div class="custom-alert-box">
             <h3 id="customAlertTitle">MESSAGE</h3>
@@ -649,13 +695,11 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 Bloodline MC Los Santos. All Rights Reserved.</p>
         <p style="margin-top: 10px;">Discord: https://discord.gg/6WxS4X2Eha | In-Game Rules Apply.</p>
     </footer>
 
-    <!-- JAVASCRIPT GABUNGAN -->
     <script>
         // ================= EFEK SCROLL & NAVIGASI =================
         const navbar = document.getElementById('navbar');
@@ -723,7 +767,7 @@
         });
 
 
-        // ================= SISTEM MINI GAME (SANDY SHORES RUN) =================
+        // ================= GAME 1: SANDY SHORES RUN & TOP 5 LEADERBOARD =================
         const arcadeModalOverlay = document.getElementById('arcadeModalOverlay');
         const canvas = document.getElementById("flappyCanvas");
         const ctx = canvas.getContext("2d");
@@ -731,12 +775,14 @@
         let isGameModalOpen = false;
         let gameAnimationId; 
 
-        // Variabel Game Anda
         const playerImg = new Image();
-        // Diubah: Dihapus "assets/" dan disesuaikan dengan file gambar terbaru Anda
         playerImg.src = 'image_692331.jpg'; 
 
-        let gameState = 'MENU'; 
+        let gameState = 'INPUT_NAME'; 
+        let playerName = "";
+        let nameInputBox = { x: canvas.width / 2 - 110, y: 240, width: 220, height: 40 };
+        let submitNameButton = { x: canvas.width / 2 - 90, y: 310, width: 180, height: 40 };
+
         let countdownTimer = 0;
         let bgX = 0, fgX = 0, flashAlpha = 0; 
         
@@ -748,15 +794,28 @@
         let difficultyText = "PROSPECT"; 
         let levelColor = "#a9a9a9"; 
 
-        const menuButton = { x: canvas.width / 2 - 90, y: 320, width: 180, height: 45 };
-        const retryButton = { x: canvas.width / 2 - 80, y: canvas.height / 2 + 75, width: 160, height: 40 };
+        let highScores = JSON.parse(localStorage.getItem('blmc_top5_leaderboard')) || [];
+
+        const menuButton = { x: canvas.width / 2 - 90, y: 360, width: 180, height: 42 };
+        const viewLbButton = { x: canvas.width / 2 - 90, y: 410, width: 180, height: 35 };
+        const retryButton = { x: canvas.width / 2 - 80, y: canvas.height / 2 + 70, width: 160, height: 38 };
+        const backToMenuButton = { x: canvas.width / 2 - 80, y: canvas.height / 2 + 115, width: 160, height: 35 };
 
         document.addEventListener("keydown", function(e) {
-            if (isGameModalOpen && e.code === "Space") {
-                e.preventDefault(); 
-                if (gameState === 'PLAYING') {
-                    bird.velocity = bird.lift;
+            if (!isGameModalOpen) return;
+
+            if (gameState === 'INPUT_NAME') {
+                if (e.key === "Enter") {
+                    if (playerName.trim().length > 0) { gameState = 'MENU'; }
+                } else if (e.key === "Backspace") {
+                    playerName = playerName.slice(0, -1);
+                } else if (e.key.length === 1 && playerName.length < 12) {
+                    playerName += e.key;
                 }
+                e.preventDefault();
+            } else if (e.code === "Space") {
+                e.preventDefault(); 
+                if (gameState === 'PLAYING') { bird.velocity = bird.lift; }
             }
         });
 
@@ -766,15 +825,32 @@
             let mouseX = e.clientX - rect.left;
             let mouseY = e.clientY - rect.top;
 
-            if (gameState === 'MENU') {
+            if (gameState === 'INPUT_NAME') {
+                if (mouseX >= submitNameButton.x && mouseX <= submitNameButton.x + submitNameButton.width &&
+                    mouseY >= submitNameButton.y && mouseY <= submitNameButton.y + submitNameButton.height) {
+                    if (playerName.trim().length > 0) { gameState = 'MENU'; }
+                }
+            } else if (gameState === 'MENU') {
                 if (mouseX >= menuButton.x && mouseX <= menuButton.x + menuButton.width &&
                     mouseY >= menuButton.y && mouseY <= menuButton.y + menuButton.height) {
                     startCountdown();
+                } else if (mouseX >= viewLbButton.x && mouseX <= viewLbButton.x + viewLbButton.width &&
+                    mouseY >= viewLbButton.y && mouseY <= viewLbButton.y + viewLbButton.height) {
+                    gameState = 'LEADERBOARD';
+                }
+            } else if (gameState === 'LEADERBOARD') {
+                let backBtn = { x: canvas.width / 2 - 80, y: 415, width: 160, height: 35 };
+                if (mouseX >= backBtn.x && mouseX <= backBtn.x + backBtn.width &&
+                    mouseY >= backBtn.y && mouseY <= backBtn.y + backBtn.height) {
+                    gameState = 'MENU';
                 }
             } else if (gameState === 'GAMEOVER') {
                 if (mouseX >= retryButton.x && mouseX <= retryButton.x + retryButton.width &&
                     mouseY >= retryButton.y && mouseY <= retryButton.y + retryButton.height) {
                     startCountdown();
+                } else if (mouseX >= backToMenuButton.x && mouseX <= backToMenuButton.x + backToMenuButton.width &&
+                    mouseY >= backToMenuButton.y && mouseY <= backToMenuButton.y + backToMenuButton.height) {
+                    gameState = 'MENU';
                 }
             } else if (gameState === 'PLAYING') {
                 bird.velocity = bird.lift;
@@ -786,7 +862,17 @@
             gameSpeed = 2.5; pipeGap = 160; difficultyText = "PROSPECT"; levelColor = "#a9a9a9";
         }
         function startCountdown() { resetGameData(); gameState = 'COUNTDOWN'; countdownTimer = 180; }
-        function triggerGameOver() { gameState = 'GAMEOVER'; flashAlpha = 1; }
+        
+        function triggerGameOver() { 
+            gameState = 'GAMEOVER'; 
+            flashAlpha = 1; 
+            if (playerName.trim() !== "") {
+                highScores.push({ name: playerName.toUpperCase(), score: score });
+                highScores.sort((a, b) => b.score - a.score);
+                if (highScores.length > 5) { highScores = highScores.slice(0, 5); }
+                localStorage.setItem('blmc_top5_leaderboard', JSON.stringify(highScores));
+            }
+        }
 
         function spawnPipe() {
             let minHeight = 60;
@@ -802,12 +888,12 @@
         }
 
         function updateGame() {
-            if (gameState !== 'GAMEOVER') {
+            if (gameState !== 'GAMEOVER' && gameState !== 'INPUT_NAME' && gameState !== 'LEADERBOARD') {
                 bgX -= gameSpeed * 0.2; if (bgX <= -canvas.width) bgX = 0; 
                 fgX -= gameSpeed; if (fgX <= -canvas.width) fgX = 0;
             }
 
-            if (gameState === 'MENU') {
+            if (gameState === 'MENU' || gameState === 'INPUT_NAME') {
                 bird.y = (canvas.height / 2) + Math.sin(frameCount * 0.05) * 15; frameCount++;
             } else if (gameState === 'COUNTDOWN') {
                 bird.y = (canvas.height / 2) + Math.sin(frameCount * 0.1) * 5; 
@@ -883,15 +969,12 @@
             if (playerImg.complete && playerImg.naturalWidth !== 0) {
                 ctx.save();
                 ctx.translate(bird.x + bird.width / 2, bird.y + bird.height / 2);
-                
                 let rotation = 0;
                 if (gameState === 'PLAYING' || gameState === 'GAMEOVER') {
                     rotation = Math.min(Math.PI / 6, Math.max(-Math.PI / 6, (bird.velocity * 0.06)));
                 }
                 ctx.rotate(rotation);
-                
                 if (gameState !== 'GAMEOVER') { ctx.shadowColor = "rgba(220, 20, 60, 0.7)"; ctx.shadowBlur = 15; }
-                
                 ctx.drawImage(playerImg, -bird.width / 2, -bird.height / 2, bird.width, bird.height);
                 ctx.restore(); 
             } else {
@@ -900,46 +983,113 @@
         }
 
         function drawModernUI() {
-            ctx.fillStyle = "rgba(10, 10, 10, 0.65)"; ctx.beginPath(); ctx.roundRect(10, 10, 110, 48, 8); ctx.fill();
+            ctx.fillStyle = "rgba(10, 10, 10, 0.65)"; ctx.beginPath(); ctx.roundRect(10, 10, 140, 48, 8); ctx.fill();
             ctx.fillStyle = "#dc143c"; ctx.beginPath(); ctx.roundRect(10, 10, 4, 48, {tl: 8, bl: 8}); ctx.fill();
-            ctx.fillStyle = "#fff"; ctx.font = "16px 'Arial Black'"; ctx.textAlign = "left";
-            ctx.shadowColor = "rgba(0,0,0,0.8)"; ctx.shadowBlur = 4; ctx.fillText(score, 25, 30);
-            ctx.fillStyle = levelColor; ctx.font = "10px Arial"; ctx.fillText(difficultyText, 25, 48); ctx.shadowBlur = 0; 
+            ctx.fillStyle = "#fff"; ctx.font = "14px 'Arial Black'"; ctx.textAlign = "left";
+            ctx.shadowColor = "rgba(0,0,0,0.8)"; ctx.shadowBlur = 4; ctx.fillText("RIDER: " + playerName, 20, 27);
+            ctx.fillText("SCORE: " + score, 20, 46); ctx.shadowBlur = 0; 
+        }
+
+        function drawInputNameOverlay() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.85)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.textAlign = "center";
+            ctx.fillStyle = "#dc143c"; ctx.font = "italic 30px Impact"; ctx.shadowColor = "#8b0000"; ctx.shadowBlur = 12;
+            ctx.fillText("IDENTITAS JALANAN", canvas.width / 2, 100);
+            
+            ctx.fillStyle = "#fff"; ctx.font = "13px Arial"; ctx.shadowBlur = 4;
+            ctx.fillText("Masukkan nama/panggilan karaktermu", canvas.width / 2, 140);
+            ctx.fillText("sebelum masuk ke mesin arcade:", canvas.width / 2, 160); ctx.shadowBlur = 0;
+
+            ctx.fillStyle = "#151515"; ctx.strokeStyle = "#dc143c"; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.roundRect(nameInputBox.x, nameInputBox.y, nameInputBox.width, nameInputBox.height, 6);
+            ctx.fill(); ctx.stroke();
+
+            ctx.fillStyle = "#fff"; ctx.font = "16px 'Courier New'";
+            let displayText = playerName + (Math.floor(Date.now() / 300) % 2 === 0 ? "_" : "");
+            ctx.fillText(displayText, canvas.width / 2, nameInputBox.y + 26);
+
+            ctx.fillStyle = "rgba(220, 20, 60, 0.9)"; ctx.beginPath();
+            ctx.roundRect(submitNameButton.x, submitNameButton.y, submitNameButton.width, submitNameButton.height, 20); ctx.fill();
+            ctx.fillStyle = "#fff"; ctx.font = "13px 'Arial Black'"; ctx.fillText("LANJUT MAIN", canvas.width / 2, submitNameButton.y + 25);
         }
 
         function drawMenuOverlay() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.75)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0, 0.8)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.textAlign = "center";
-            
             let pulse = Math.sin(frameCount * 0.05) * 2;
-            ctx.fillStyle = "#dc143c"; ctx.font = "italic 36px Impact"; ctx.shadowColor = "#8b0000"; ctx.shadowBlur = 15;
-            ctx.fillText("BLOODLINE MC", canvas.width / 2, 140 + pulse);
+            ctx.fillStyle = "#dc143c"; ctx.font = "italic 32px Impact"; ctx.shadowColor = "#8b0000"; ctx.shadowBlur = 15;
+            ctx.fillText("BLOODLINE MC", canvas.width / 2, 85 + pulse);
             
-            ctx.fillStyle = "#fff"; ctx.font = "14px 'Arial Black'"; ctx.shadowBlur = 5;
-            ctx.fillText("SANDY SHORES RUN", canvas.width / 2, 170 + pulse); ctx.shadowBlur = 0;
+            ctx.fillStyle = "#fff"; ctx.font = "12px 'Arial Black'"; ctx.shadowBlur = 5;
+            ctx.fillText("SANDY SHORES RUN", canvas.width / 2, 110 + pulse); ctx.shadowBlur = 0;
 
-            ctx.font = "14px Arial"; ctx.fillStyle = "#ccc";
-            ctx.fillText("Tarik gas dan hindari tiang kayu.", canvas.width / 2, 230);
-            ctx.fillText("Buktikan dirimu pantas memakai", canvas.width / 2, 250);
-            ctx.fillText("patch Bloodline di jalanan ini.", canvas.width / 2, 270);
+            ctx.fillStyle = "#f1c40f"; ctx.font = "12px Arial";
+            ctx.fillText("Rider Aktif: " + playerName, canvas.width / 2, 140);
+
+            ctx.font = "12px Arial"; ctx.fillStyle = "#ccc";
+            ctx.fillText("Tarik gas, hindari rintangan tiang,", canvas.width / 2, 185);
+            ctx.fillText("dan rebut posisi teratas leaderboard!", canvas.width / 2, 205);
 
             ctx.fillStyle = "rgba(220, 20, 60, 0.9)"; ctx.beginPath();
-            ctx.roundRect(menuButton.x, menuButton.y, menuButton.width, menuButton.height, 22); ctx.fill();
-            
-            ctx.fillStyle = "#fff"; ctx.font = "14px 'Arial Black'"; ctx.fillText("PLAY GAME", canvas.width / 2, menuButton.y + 28);
+            ctx.roundRect(menuButton.x, menuButton.y, menuButton.width, menuButton.height, 20); ctx.fill();
+            ctx.fillStyle = "#fff"; ctx.font = "13px 'Arial Black'"; ctx.fillText("PLAY GAME", canvas.width / 2, menuButton.y + 26);
+
+            ctx.fillStyle = "#333"; ctx.strokeStyle = "#555"; ctx.lineWidth = 1; ctx.beginPath();
+            ctx.roundRect(viewLbButton.x, viewLbButton.y, viewLbButton.width, viewLbButton.height, 18); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = "#fff"; ctx.font = "11px 'Arial Black'"; ctx.fillText("🏆 TOP 5 LEADERBOARD", canvas.width / 2, viewLbButton.y + 22);
+        }
+
+        function drawLeaderboardOverlay() {
+            ctx.fillStyle = "rgba(5, 5, 5, 0.92)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.textAlign = "center";
+            ctx.fillStyle = "#f1c40f"; ctx.font = "italic 28px Impact"; ctx.shadowColor = "#b7950b"; ctx.shadowBlur = 10;
+            ctx.fillText("TOP 5 LEADERBOARD", canvas.width / 2, 60); ctx.shadowBlur = 0;
+
+            ctx.fillStyle = "#888"; ctx.font = "11px Arial";
+            ctx.fillText("Papan Kehormatan Jalanan Bloodline MC", canvas.width / 2, 82);
+
+            let startY = 115;
+            for (let i = 0; i < 5; i++) {
+                ctx.fillStyle = i === 0 ? "rgba(241, 196, 15, 0.15)" : "rgba(30, 30, 30, 0.6)";
+                ctx.strokeStyle = i === 0 ? "#f1c40f" : "#333";
+                ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.roundRect(35, startY + (i * 52), canvas.width - 70, 44, 6);
+                ctx.fill(); ctx.stroke();
+
+                let rankText = `#${i + 1}`;
+                let nameText = highScores[i] ? highScores[i].name : "---";
+                let scoreText = highScores[i] ? highScores[i].score : "-";
+
+                ctx.fillStyle = i === 0 ? "#f1c40f" : "#aaa";
+                ctx.font = "bold 13px 'Arial Black'"; ctx.textAlign = "left";
+                ctx.fillText(rankText, 52, startY + (i * 52) + 27);
+
+                ctx.fillStyle = "#fff"; ctx.font = "13px Arial"; ctx.textAlign = "left";
+                ctx.fillText(nameText, 95, startY + (i * 52) + 27);
+
+                ctx.fillStyle = "#dc143c"; ctx.font = "bold 14px 'Arial Black'"; ctx.textAlign = "right";
+                ctx.fillText(scoreText, canvas.width - 52, startY + (i * 52) + 27);
+            }
+
+            let backBtn = { x: canvas.width / 2 - 80, y: 415, width: 160, height: 35 };
+            ctx.fillStyle = "rgba(220, 20, 60, 0.9)"; ctx.beginPath();
+            ctx.roundRect(backBtn.x, backBtn.y, backBtn.width, backBtn.height, 18); ctx.fill();
+            ctx.fillStyle = "#fff"; ctx.font = "12px 'Arial Black'"; ctx.textAlign = "center";
+            ctx.fillText("KEMBALI", canvas.width / 2, backBtn.y + 22);
         }
 
         function drawGame() {
             drawBackground();
             drawGameElements();
 
-            if (gameState === 'MENU') { drawMenuOverlay(); } 
+            if (gameState === 'INPUT_NAME') { drawInputNameOverlay(); }
+            else if (gameState === 'MENU') { drawMenuOverlay(); } 
+            else if (gameState === 'LEADERBOARD') { drawLeaderboardOverlay(); }
             else if (gameState === 'COUNTDOWN') {
                 let displayNum = Math.ceil(countdownTimer / 60);
                 ctx.fillStyle = "rgba(0,0,0,0.5)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.fillStyle = "#fff"; ctx.font = "120px Impact"; ctx.textAlign = "center";
                 ctx.shadowColor = "#dc143c"; ctx.shadowBlur = 20;
-                
                 let scale = 1 + (countdownTimer % 60) / 120; 
                 ctx.save(); ctx.translate(canvas.width / 2, canvas.height / 2 + 40); ctx.scale(scale, scale);
                 ctx.fillText(displayNum, 0, 0); ctx.restore();
@@ -947,17 +1097,21 @@
             else if (gameState === 'PLAYING') { drawModernUI(); } 
             else if (gameState === 'GAMEOVER') {
                 drawModernUI();
-                ctx.fillStyle = "rgba(10, 5, 5, 0.85)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.textAlign = "center"; ctx.fillStyle = "#dc143c"; ctx.font = "italic 42px Impact";
+                ctx.fillStyle = "rgba(10, 5, 5, 0.88)"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.textAlign = "center"; ctx.fillStyle = "#dc143c"; ctx.font = "italic 36px Impact";
                 ctx.shadowColor = "#8b0000"; ctx.shadowBlur = 15;
-                ctx.fillText("RIDE OVER", canvas.width / 2, canvas.height / 2 - 35); ctx.shadowBlur = 0; 
+                ctx.fillText("RIDE OVER", canvas.width / 2, canvas.height / 2 - 45); ctx.shadowBlur = 0; 
                 
-                ctx.fillStyle = "#fff"; ctx.font = "16px 'Arial Black'"; ctx.fillText("SCORE: " + score, canvas.width / 2, canvas.height / 2 + 5);
-                ctx.fillStyle = levelColor; ctx.font = "12px Arial"; ctx.fillText("RANK: " + difficultyText, canvas.width / 2, canvas.height / 2 + 25);
+                ctx.fillStyle = "#fff"; ctx.font = "14px 'Arial Black'"; ctx.fillText("SKOR KAMU: " + score, canvas.width / 2, canvas.height / 2 - 12);
+                ctx.fillStyle = levelColor; ctx.font = "11px Arial"; ctx.fillText("RANK: " + difficultyText, canvas.width / 2, canvas.height / 2 + 10);
 
                 ctx.fillStyle = "rgba(220, 20, 60, 0.9)"; ctx.beginPath();
-                ctx.roundRect(retryButton.x, retryButton.y, retryButton.width, retryButton.height, 20); ctx.fill();
-                ctx.fillStyle = "#fff"; ctx.font = "13px 'Arial Black'"; ctx.fillText("MAIN LAGI", canvas.width / 2, retryButton.y + 25);
+                ctx.roundRect(retryButton.x, retryButton.y, retryButton.width, retryButton.height, 18); ctx.fill();
+                ctx.fillStyle = "#fff"; ctx.font = "12px 'Arial Black'"; ctx.fillText("MAIN LAGI", canvas.width / 2, retryButton.y + 24);
+
+                ctx.fillStyle = "#333"; ctx.strokeStyle = "#555"; ctx.lineWidth = 1; ctx.beginPath();
+                ctx.roundRect(backToMenuButton.x, backToMenuButton.y, backToMenuButton.width, backToMenuButton.height, 18); ctx.fill(); ctx.stroke();
+                ctx.fillStyle = "#fff"; ctx.font = "11px 'Arial Black'"; ctx.fillText("MENU UTAMA", canvas.width / 2, backToMenuButton.y + 23);
             }
 
             if (flashAlpha > 0) { ctx.fillStyle = `rgba(220, 20, 60, ${flashAlpha})`; ctx.fillRect(0, 0, canvas.width, canvas.height); }
@@ -975,8 +1129,10 @@
                 isGameModalOpen = true;
                 arcadeModalOverlay.classList.add('show');
                 resetGameData();
-                gameState = 'MENU';
+                gameState = playerName.trim() === "" ? 'INPUT_NAME' : 'MENU';
                 gameLoop(); 
+            } else if (gameId === 'snakeGame') {
+                openSnakeGame();
             }
         }
 
@@ -987,7 +1143,289 @@
         }
 
 
-        // ================= CUSTOM ALERT SYSTEM (UNTUK DISCORD) =================
+        // ================= GAME 2: BLOODLINE SNAKE (DENGAN INPUT NAMA & LEADERBOARD TOP 5) =================
+        const snakeModalOverlay = document.getElementById("snakeModalOverlay");
+        const snakeCanvas = document.getElementById("snakeCanvas");
+        const sCtx = snakeCanvas.getContext("2d");
+
+        const snakeScoreEl = document.getElementById("snakeScore");
+        const snakeActiveRiderEl = document.getElementById("snakeActiveRider");
+        const snakeGameMessage = document.getElementById("snakeGameMessage");
+
+        const sGridSize = 15;
+        let snake = [];
+        let sFood = { x: 0, y: 0 };
+        let sDx = sGridSize;
+        let sDy = 0;
+        let snakeScore = 0;
+        let snakeGameState = 'INPUT_NAME'; 
+        let snakePlayerName = "";
+        let snakeGameInterval = null;
+        let isSnakeRunning = false;
+        let snakeChangingDirection = false;
+
+        let snakeHighScores = JSON.parse(localStorage.getItem('blmc_snake_top5')) || [];
+
+        function openSnakeGame() {
+            snakeModalOverlay.classList.add("show");
+            snakeGameState = snakePlayerName.trim() === "" ? 'INPUT_NAME' : 'MENU';
+            renderSnakeScreen();
+        }
+
+        function closeSnakeGame() {
+            snakeModalOverlay.classList.remove("show");
+            clearInterval(snakeGameInterval);
+            isSnakeRunning = false;
+        }
+
+        function resetSnakeGame() {
+            snake = [
+                { x: 105, y: 150 },
+                { x: 90, y: 150 },
+                { x: 75, y: 150 }
+            ];
+            snakeScore = 0;
+            snakeScoreEl.innerText = snakeScore;
+            sDx = sGridSize;
+            sDy = 0;
+            createSnakeFood();
+        }
+
+        function startSnakeGame() {
+            resetSnakeGame();
+            snakeGameMessage.classList.add("hidden");
+            if (snakeGameInterval) clearInterval(snakeGameInterval);
+            snakeGameInterval = setInterval(mainSnake, 100);
+            isSnakeRunning = true;
+            snakeGameState = 'PLAYING';
+        }
+
+        function mainSnake() {
+            if (hasSnakeGameEnded()) {
+                endSnakeGame();
+                return;
+            }
+            snakeChangingDirection = false;
+            clearSnakeCanvas();
+            drawSnakeFood();
+            moveSnakeBody();
+            drawSnakeBody();
+        }
+
+        function clearSnakeCanvas() {
+            sCtx.fillStyle = "#0f0505"; 
+            sCtx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
+            
+            sCtx.strokeStyle = "rgba(40, 10, 10, 0.3)";
+            sCtx.lineWidth = 0.5;
+            for(let i = 0; i < snakeCanvas.width; i += sGridSize) {
+                sCtx.beginPath(); sCtx.moveTo(i, 0); sCtx.lineTo(i, snakeCanvas.height); sCtx.stroke();
+                sCtx.beginPath(); sCtx.moveTo(0, i); sCtx.lineTo(snakeCanvas.width, i); sCtx.stroke();
+            }
+        }
+
+        function drawSnakeBody() {
+            snake.forEach((part, index) => {
+                if (index === 0) {
+                    sCtx.fillStyle = "#ff1e1e"; sCtx.strokeStyle = "#8b0000";
+                } else {
+                    sCtx.fillStyle = "#b30000"; sCtx.strokeStyle = "#400000";
+                }
+                sCtx.fillRect(part.x + 1, part.y + 1, sGridSize - 2, sGridSize - 2);
+                sCtx.strokeRect(part.x + 1, part.y + 1, sGridSize - 2, sGridSize - 2);
+            });
+        }
+
+        function moveSnakeBody() {
+            const head = { x: snake[0].x + sDx, y: snake[0].y + sDy };
+            snake.unshift(head);
+
+            const hasEatenFood = snake[0].x === sFood.x && snake[0].y === sFood.y;
+            if (hasEatenFood) {
+                snakeScore += 10;
+                snakeScoreEl.innerText = snakeScore;
+                createSnakeFood();
+            } else {
+                snake.pop();
+            }
+        }
+
+        function randomSnakeFood(min, max) {
+            return Math.floor((Math.random() * (max - min) + min) / sGridSize) * sGridSize;
+        }
+
+        function createSnakeFood() {
+            sFood.x = randomSnakeFood(0, snakeCanvas.width);
+            sFood.y = randomSnakeFood(0, snakeCanvas.height);
+            snake.forEach(part => {
+                if (part.x === sFood.x && part.y === sFood.y) createSnakeFood();
+            });
+        }
+
+        function drawSnakeFood() {
+            sCtx.fillStyle = "#ffd700";
+            sCtx.beginPath();
+            sCtx.arc(sFood.x + sGridSize/2, sFood.y + sGridSize/2, sGridSize/2.5, 0, 2 * Math.PI);
+            sCtx.fill();
+            sCtx.strokeStyle = "#ff4500";
+            sCtx.lineWidth = 1.5;
+            sCtx.stroke();
+        }
+
+        function hasSnakeGameEnded() {
+            for (let i = 4; i < snake.length; i++) {
+                if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
+            }
+            return snake[0].x < 0 || snake[0].x >= snakeCanvas.width || snake[0].y < 0 || snake[0].y >= snakeCanvas.height;
+        }
+
+        function endSnakeGame() {
+            clearInterval(snakeGameInterval);
+            isSnakeRunning = false;
+            snakeGameState = 'GAMEOVER';
+
+            if (snakePlayerName.trim() !== "") {
+                snakeHighScores.push({ name: snakePlayerName.toUpperCase(), score: snakeScore });
+                snakeHighScores.sort((a, b) => b.score - a.score);
+                if (snakeHighScores.length > 5) { snakeHighScores = snakeHighScores.slice(0, 5); }
+                localStorage.setItem('blmc_snake_top5', JSON.stringify(snakeHighScores));
+            }
+            renderSnakeScreen();
+        }
+
+        function renderSnakeScreen() {
+            snakeActiveRiderEl.innerText = snakePlayerName || "-";
+            if (snakeGameState === 'PLAYING') {
+                snakeGameMessage.classList.add("hidden");
+                return;
+            }
+
+            snakeGameMessage.classList.remove("hidden");
+            let htmlContent = "";
+
+            if (snakeGameState === 'INPUT_NAME') {
+                htmlContent = `
+                    <h2 style="color:#ff1e1e; font-family:var(--font-cinzel); font-size:16px; margin-bottom:8px;">IDENTITAS JALANAN</h2>
+                    <p style="font-family:var(--font-vt); font-size:15px; margin-bottom:12px; color:#ccc;">Masukkan nama panggilan rider:</p>
+                    <input type="text" id="snakeNameInput" value="${snakePlayerName}" maxlength="12" placeholder="Cth: BONE" style="background:#151515; border:2px solid #ff1e1e; color:#fff; padding:8px; text-align:center; font-family:var(--font-vt); font-size:18px; width:180px; border-radius:4px; margin-bottom:15px; outline:none;">
+                    <br>
+                    <button class="snake-start-btn" id="snakeSubmitName">LANJUT MAIN</button>
+                `;
+            } else if (snakeGameState === 'MENU') {
+                htmlContent = `
+                    <h2 style="color:#ff1e1e; font-family:var(--font-cinzel); font-size:16px; margin-bottom:6px;">BLOODLINE SNAKE</h2>
+                    <p style="font-family:var(--font-vt); font-size:15px; margin-bottom:12px; color:#f1c40f;">Rider: ${snakePlayerName}</p>
+                    <button class="snake-start-btn" id="snakePlayBtn" style="margin-bottom:8px; width:150px;">PLAY GAME</button>
+                    <br>
+                    <button class="snake-start-btn" id="snakeLbBtn" style="background:#333; border-color:#555; width:150px;">🏆 TOP 5 LEADERBOARD</button>
+                `;
+            } else if (snakeGameState === 'LEADERBOARD') {
+                let listHtml = "";
+                for (let i = 0; i < 5; i++) {
+                    let entry = snakeHighScores[i];
+                    listHtml += `<div style="display:flex; justify-content:space-between; width:220px; font-family:var(--font-vt); font-size:15px; color:${i===0?'#f1c40f':'#ccc'}; border-bottom:1px dashed #330000; padding:2px 0;">
+                        <span>#${i+1} ${entry ? entry.name : "---"}</span>
+                        <span>${entry ? entry.score : "-"}</span>
+                    </div>`;
+                }
+                htmlContent = `
+                    <h2 style="color:#f1c40f; font-family:var(--font-cinzel); font-size:15px; margin-bottom:6px;">TOP 5 LEADERBOARD</h2>
+                    <div style="margin-bottom:12px;">${listHtml}</div>
+                    <button class="snake-start-btn" id="snakeBackMenu" style="width:130px;">KEMBALI</button>
+                `;
+            } else if (snakeGameState === 'GAMEOVER') {
+                htmlContent = `
+                    <h2 style="color:#ff1e1e; font-family:var(--font-cinzel); font-size:16px; margin-bottom:6px;">RIDE OVER</h2>
+                    <p style="font-family:var(--font-vt); font-size:16px; margin-bottom:12px; color:#fff;">Skor Kamu: ${snakeScore}</p>
+                    <button class="snake-start-btn" id="snakeRetryBtn" style="margin-bottom:8px; width:150px;">MAIN LAGI</button>
+                    <br>
+                    <button class="snake-start-btn" id="snakeMenuBtn" style="background:#333; border-color:#555; width:150px;">MENU UTAMA</button>
+                `;
+            }
+
+            snakeGameMessage.innerHTML = htmlContent;
+            bindSnakeUIEvents();
+        }
+
+        function bindSnakeUIEvents() {
+            const submitBtn = document.getElementById("snakeSubmitName");
+            if (submitBtn) {
+                submitBtn.addEventListener("click", () => {
+                    const inputVal = document.getElementById("snakeNameInput").value;
+                    if (inputVal.trim() !== "") {
+                        snakePlayerName = inputVal.trim();
+                        snakeGameState = 'MENU';
+                        renderSnakeScreen();
+                    }
+                });
+            }
+
+            const playBtn = document.getElementById("snakePlayBtn");
+            if (playBtn) {
+                playBtn.addEventListener("click", startSnakeGame);
+            }
+
+            const lbBtn = document.getElementById("snakeLbBtn");
+            if (lbBtn) {
+                lbBtn.addEventListener("click", () => {
+                    snakeGameState = 'LEADERBOARD';
+                    renderSnakeScreen();
+                });
+            }
+
+            const backMenu = document.getElementById("snakeBackMenu");
+            if (backMenu) {
+                backMenu.addEventListener("click", () => {
+                    snakeGameState = 'MENU';
+                    renderSnakeScreen();
+                });
+            }
+
+            const retryBtn = document.getElementById("snakeRetryBtn");
+            if (retryBtn) {
+                retryBtn.addEventListener("click", startSnakeGame);
+            }
+
+            const menuBtn = document.getElementById("snakeMenuBtn");
+            if (menuBtn) {
+                menuBtn.addEventListener("click", () => {
+                    snakeGameState = 'MENU';
+                    renderSnakeScreen();
+                });
+            }
+        }
+
+        function changeSnakeDirection(event) {
+            if (!isSnakeRunning || snakeChangingDirection) return;
+            const keyPressed = event.keyCode;
+            const goingUp = sDy === -sGridSize;
+            const goingDown = sDy === sGridSize;
+            const goingRight = sDx === sGridSize;
+            const goingLeft = sDx === -sGridSize;
+
+            if ((keyPressed === 37 || keyPressed === 65) && !goingRight) { sDx = -sGridSize; sDy = 0; snakeChangingDirection = true; }
+            if ((keyPressed === 38 || keyPressed === 87) && !goingDown) { sDx = 0; sDy = -sGridSize; snakeChangingDirection = true; }
+            if ((keyPressed === 39 || keyPressed === 68) && !goingLeft) { sDx = sGridSize; sDy = 0; snakeChangingDirection = true; }
+            if ((keyPressed === 40 || keyPressed === 83) && !goingUp) { sDx = 0; sDy = sGridSize; snakeChangingDirection = true; }
+        }
+
+        document.addEventListener("keydown", changeSnakeDirection);
+
+        document.getElementById("snakeBtnUp").addEventListener("click", () => {
+            if (isSnakeRunning && sDy === 0 && !snakeChangingDirection) { sDx = 0; sDy = -sGridSize; snakeChangingDirection = true; }
+        });
+        document.getElementById("snakeBtnDown").addEventListener("click", () => {
+            if (isSnakeRunning && sDy === 0 && !snakeChangingDirection) { sDx = 0; sDy = sGridSize; snakeChangingDirection = true; }
+        });
+        document.getElementById("snakeBtnLeft").addEventListener("click", () => {
+            if (isSnakeRunning && sDx === 0 && !snakeChangingDirection) { sDx = -sGridSize; sDy = 0; snakeChangingDirection = true; }
+        });
+        document.getElementById("snakeBtnRight").addEventListener("click", () => {
+            if (isSnakeRunning && sDx === 0 && !snakeChangingDirection) { sDx = sGridSize; sDy = 0; snakeChangingDirection = true; }
+        });
+
+
+        // ================= CUSTOM ALERT SYSTEM =================
         const customAlertOverlay = document.getElementById('customAlertOverlay');
         const customAlertTitle = document.getElementById('customAlertTitle');
         const customAlertMessage = document.getElementById('customAlertMessage');
