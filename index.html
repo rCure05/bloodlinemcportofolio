@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloodline MC | Los Santos Original</title>
+    <title>Bloodline MC | Industrial Noir — Los Santos Original Chapter</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@700;900&family=Courier+Prime&family=Inter:wght@300;400;700&family=VT323&display=swap" rel="stylesheet">
     
     <style>
@@ -479,34 +479,1473 @@
 
         .fade-in { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* =========================================================
+           BLOODLINE MC v0.2 — INDUSTRIAL NOIR / CINEMATIC OVERRIDES
+           ========================================================= */
+        :root {
+            --asphalt: #080808;
+            --crimson: #8f0c13;
+            --crimson-neon: #d71920;
+            --blood-bright: #ff2931;
+            --gunmetal: #2b2e32;
+            --steel: #7b8088;
+            --text-light: #ece8e1;
+            --paper: #d7d1c7;
+            --muted: #8c8b89;
+            --surface: #0d0d0e;
+            --surface-2: #121214;
+            --surface-3: #171719;
+            --line: rgba(255,255,255,.10);
+            --red-line: rgba(215,25,32,.42);
+            --font-head: 'Bebas Neue', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-typewriter: 'Courier Prime', monospace;
+            --font-cinzel: 'Cinzel', serif;
+            --font-vt: 'VT323', monospace;
+        }
+
+        html { scroll-padding-top: 90px; }
+
+        body {
+            background:
+                radial-gradient(circle at 12% 4%, rgba(143,12,19,.10), transparent 25%),
+                radial-gradient(circle at 88% 60%, rgba(255,255,255,.025), transparent 28%),
+                var(--asphalt);
+            color: var(--text-light);
+            cursor: default;
+        }
+
+        body.menu-open,
+        body.modal-open { overflow: hidden; }
+
+        ::selection {
+            background: var(--crimson-neon);
+            color: #fff;
+        }
+
+        a, button, input, textarea { -webkit-tap-highlight-color: transparent; }
+
+        /* Global cinematic texture */
+        .global-noise,
+        .hero-noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9997;
+            opacity: .028;
+            background-image:
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+            mix-blend-mode: soft-light;
+        }
+
+        .hero-noise { position: absolute; z-index: 2; opacity: .07; }
+
+        /* Loader */
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: #050505;
+            z-index: 20000;
+            display: grid;
+            place-content: center;
+            gap: 18px;
+            transition: opacity .65s ease, visibility .65s ease;
+        }
+        .page-loader.loaded {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-mark {
+            width: 74px;
+            height: 74px;
+            margin: 0 auto;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255,255,255,.2);
+            border-left: 3px solid var(--crimson-neon);
+            font-family: var(--font-head);
+            font-size: 34px;
+            letter-spacing: 2px;
+            transform: rotate(45deg);
+        }
+        .loader-mark::first-line { transform: rotate(-45deg); }
+        .loader-copy {
+            min-width: 250px;
+            text-align: center;
+            display: grid;
+            gap: 3px;
+        }
+        .loader-copy strong {
+            font-family: var(--font-head);
+            letter-spacing: 4px;
+            font-size: 22px;
+        }
+        .loader-copy span {
+            color: #666;
+            font-family: var(--font-typewriter);
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+        .loader-line {
+            width: 250px;
+            height: 1px;
+            background: #222;
+            overflow: hidden;
+        }
+        .loader-line i {
+            display: block;
+            width: 40%;
+            height: 100%;
+            background: var(--crimson-neon);
+            animation: loaderSweep 1.2s ease-in-out infinite;
+        }
+        @keyframes loaderSweep {
+            from { transform: translateX(-120%); }
+            to { transform: translateX(350%); }
+        }
+
+        /* Cursor */
+        .cursor-dot, .cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 19999;
+            border-radius: 50%;
+            opacity: 0;
+        }
+        .cursor-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--blood-bright);
+        }
+        .cursor-ring {
+            width: 28px;
+            height: 28px;
+            border: 1px solid rgba(255,255,255,.35);
+            transition: width .2s, height .2s, border-color .2s, background .2s;
+        }
+        body.cursor-ready .cursor-dot,
+        body.cursor-ready .cursor-ring { opacity: 1; }
+        body.cursor-hover .cursor-ring {
+            width: 48px;
+            height: 48px;
+            border-color: rgba(215,25,32,.85);
+            background: rgba(215,25,32,.08);
+        }
+
+        /* Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--crimson-neon);
+            z-index: 12000;
+            box-shadow: 0 0 14px rgba(215,25,32,.6);
+        }
+
+        /* Navigation */
+        nav {
+            padding: 16px 4.5%;
+            min-height: 76px;
+            background: linear-gradient(to bottom, rgba(5,5,5,.86), rgba(5,5,5,.16), transparent);
+            border-bottom: 1px solid transparent;
+        }
+        nav.scrolled {
+            background: rgba(8,8,8,.84);
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 8px 30px rgba(0,0,0,.28);
+            backdrop-filter: blur(18px);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-light);
+        }
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(255,255,255,.18);
+            border-left: 3px solid var(--crimson-neon);
+            font-family: var(--font-head);
+            font-size: 19px;
+            letter-spacing: 1px;
+            background: #0c0c0d;
+        }
+        .brand-copy {
+            display: grid;
+            line-height: 1;
+            gap: 5px;
+        }
+        .brand-main {
+            font-family: var(--font-head);
+            font-size: 25px;
+            letter-spacing: 2px;
+        }
+        .brand-sub {
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            color: #6f6f70;
+            letter-spacing: 1.4px;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+        .nav-links a {
+            position: relative;
+            margin: 0;
+            font-size: 11px;
+            letter-spacing: 1.6px;
+            color: #b8b7b4;
+            padding: 10px 0;
+        }
+        .nav-links a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 2px;
+            width: 0;
+            height: 1px;
+            background: var(--crimson-neon);
+            transition: width .3s ease;
+        }
+        .nav-links a:hover,
+        .nav-links a.active { color: #fff; }
+        .nav-links a:hover::after,
+        .nav-links a.active::after { width: 100%; }
+        .nav-links .nav-cta {
+            padding: 11px 16px;
+            border: 1px solid rgba(215,25,32,.7);
+            color: #fff;
+        }
+        .nav-links .nav-cta::after { display: none; }
+        .nav-links .nav-cta:hover {
+            background: var(--crimson-neon);
+        }
+        .menu-toggle {
+            display: none;
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--line);
+            background: rgba(10,10,10,.8);
+            cursor: pointer;
+            padding: 10px;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: #ddd;
+            margin: 5px 0;
+            transition: transform .3s ease, opacity .3s ease;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 760px;
+            height: 100svh;
+            align-items: flex-start;
+            text-align: left;
+            padding: 120px 8% 90px;
+        }
+        .bg-video {
+            filter: brightness(.34) saturate(.72) contrast(1.12);
+            transform: translate(-50%, -50%) scale(1.035);
+            animation: heroDrift 14s ease-in-out infinite alternate;
+        }
+        @keyframes heroDrift {
+            from { transform: translate(-50%, -50%) scale(1.035); }
+            to { transform: translate(-50.4%, -50%) scale(1.07); }
+        }
+        .video-overlay {
+            background:
+                linear-gradient(90deg, rgba(5,5,5,.88) 0%, rgba(5,5,5,.55) 42%, rgba(5,5,5,.20) 70%, rgba(5,5,5,.55) 100%),
+                linear-gradient(to top, #080808 0%, transparent 28%, rgba(0,0,0,.1) 60%);
+        }
+        .hero-vignette {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+            box-shadow: inset 0 0 170px rgba(0,0,0,.8);
+        }
+        .hero-content {
+            width: min(980px, 100%);
+            z-index: 4;
+        }
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            font-family: var(--font-typewriter);
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #a7a4a0;
+            margin-bottom: 24px;
+        }
+        .kicker-line {
+            width: 42px;
+            height: 1px;
+            background: var(--crimson-neon);
+        }
+        .hero-title {
+            display: grid;
+            margin: 0;
+            font-size: clamp(4rem, 8.2vw, 8.4rem);
+            line-height: .84;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            text-shadow: 0 15px 40px rgba(0,0,0,.6);
+        }
+        .hero-title span { display: block; }
+        .hero-title em {
+            color: var(--crimson-neon);
+            font-style: normal;
+        }
+        .hero-copy {
+            max-width: 650px;
+            margin: 28px 0 0;
+            color: #b6b2ac;
+            font-size: 15px;
+            line-height: 1.85;
+            letter-spacing: .15px;
+            text-transform: none;
+        }
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+            margin-top: 28px;
+            font-family: var(--font-typewriter);
+            font-size: 9px;
+            letter-spacing: 1.7px;
+            color: #777;
+        }
+        .hero-meta i {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--crimson-neon);
+        }
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 38px;
+        }
+        .btn-neon,
+        .btn-solid,
+        .btn-ghost-cinematic {
+            animation: none;
+            letter-spacing: 1.3px;
+        }
+        .btn-primary-cinematic {
+            display: inline-flex;
+            align-items: center;
+            gap: 28px;
+            padding: 16px 22px;
+            border: 1px solid var(--crimson-neon);
+            background: rgba(143,12,19,.16);
+            color: #fff;
+            font-size: 18px;
+            box-shadow: inset 0 0 0 0 var(--crimson-neon);
+        }
+        .btn-primary-cinematic:hover {
+            background: var(--crimson-neon);
+            box-shadow: 0 12px 34px rgba(143,12,19,.28);
+        }
+        .btn-primary-cinematic b {
+            font-family: var(--font-body);
+            font-size: 15px;
+            transition: transform .3s ease;
+        }
+        .btn-primary-cinematic:hover b { transform: translate(3px, 3px); }
+        .btn-ghost-cinematic {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: #c9c4bd;
+            text-decoration: none;
+            font-family: var(--font-head);
+            font-size: 17px;
+            padding: 15px 12px;
+        }
+        .btn-ghost-cinematic span { transition: transform .3s ease; }
+        .btn-ghost-cinematic:hover { color: #fff; }
+        .btn-ghost-cinematic:hover span { transform: translateX(5px); }
+
+        .scroll-cue {
+            position: absolute;
+            left: 8%;
+            bottom: 28px;
+            z-index: 4;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #656565;
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            letter-spacing: 2px;
+        }
+        .scroll-line {
+            position: relative;
+            width: 80px;
+            height: 1px;
+            background: #353535;
+            overflow: hidden;
+        }
+        .scroll-line i {
+            position: absolute;
+            inset: 0 auto 0 0;
+            width: 30px;
+            background: var(--crimson-neon);
+            animation: scrollSweep 1.8s ease-in-out infinite;
+        }
+        @keyframes scrollSweep {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(300%); }
+        }
+        .hero-corner {
+            position: absolute;
+            z-index: 4;
+            bottom: 28px;
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            letter-spacing: 1.8px;
+            color: #4f4f50;
+        }
+        .hero-corner-left { left: 50%; transform: translateX(-50%); }
+        .hero-corner-right { right: 4.5%; }
+
+        /* Sections */
+        .section-padding {
+            position: relative;
+            padding: 120px 8%;
+        }
+        .section-padding::before {
+            content: "";
+            position: absolute;
+            left: 8%;
+            right: 8%;
+            top: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent);
+        }
+        .section-index {
+            font-family: var(--font-typewriter);
+            font-size: 10px;
+            letter-spacing: 2.2px;
+            color: var(--crimson-neon);
+            margin-bottom: 12px;
+        }
+        .section-heading { margin-bottom: 58px; }
+        .section-heading h2,
+        .text-center h2 {
+            font-size: clamp(3.3rem, 6vw, 5.7rem);
+            line-height: .9;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+        .section-heading p,
+        .text-center p {
+            width: min(680px, 100%);
+            margin: 0 auto;
+            color: #858482 !important;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        /* Lore */
+        .lore-container {
+            gap: clamp(45px, 6vw, 95px);
+            align-items: stretch;
+        }
+        .lore-video-container {
+            min-height: 500px;
+            height: auto;
+            border: 1px solid rgba(255,255,255,.12);
+            filter: grayscale(100%) contrast(1.08);
+            box-shadow: 0 30px 80px rgba(0,0,0,.35);
+        }
+        .lore-video-container::before {
+            content: "ARCHIVE FOOTAGE / 01";
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            z-index: 6;
+            padding: 7px 9px;
+            background: rgba(5,5,5,.72);
+            border-left: 2px solid var(--crimson-neon);
+            color: #b2b0ac;
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            letter-spacing: 1.5px;
+        }
+        .lore-video-container:hover {
+            filter: grayscale(18%) contrast(1.05);
+            border-color: rgba(215,25,32,.55);
+        }
+        .lore-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .lore-text h2 {
+            font-size: clamp(4rem, 6vw, 6.5rem);
+            line-height: .88;
+            color: var(--text-light);
+        }
+        .lore-quote {
+            margin: 16px 0 15px;
+            color: #d4d0c9 !important;
+            font-family: var(--font-cinzel);
+            font-size: 17px !important;
+        }
+        .lore-text > p:last-of-type {
+            max-width: 630px;
+            color: #96938f;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+        .lore-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            margin-top: 34px;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .lore-stats div {
+            padding: 18px 14px 18px 0;
+            display: grid;
+            gap: 4px;
+        }
+        .lore-stats div + div {
+            border-left: 1px solid var(--line);
+            padding-left: 18px;
+        }
+        .lore-stats strong {
+            font-family: var(--font-head);
+            font-size: 19px;
+            letter-spacing: 1.3px;
+        }
+        .lore-stats span {
+            color: #626264;
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            letter-spacing: 1.2px;
+        }
+        .video-controls {
+            opacity: 1;
+            background: rgba(5,5,5,.76);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 0;
+        }
+
+        /* Roster / dossier */
+        #roster {
+            background:
+                linear-gradient(rgba(7,7,8,.97), rgba(7,7,8,.97)),
+                repeating-linear-gradient(0deg, transparent 0 31px, rgba(255,255,255,.02) 31px 32px);
+        }
+        .roster-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+        }
+        .polaroid {
+            position: relative;
+            overflow: hidden;
+            background: #111113;
+            padding: 0;
+            color: #fff;
+            text-align: left;
+            box-shadow: 0 18px 50px rgba(0,0,0,.3);
+            transform: none !important;
+            filter: none;
+            border: 1px solid rgba(255,255,255,.09);
+        }
+        .polaroid::before {
+            content: "BLOODLINE ARCHIVE";
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 3;
+            padding: 6px 8px;
+            background: rgba(5,5,5,.72);
+            border-left: 2px solid var(--crimson-neon);
+            color: #bbb;
+            font-family: var(--font-typewriter);
+            font-size: 7px;
+            letter-spacing: 1.2px;
+        }
+        .polaroid::after {
+            content: "ACTIVE / TABLE MEMBER";
+            position: absolute;
+            right: 14px;
+            bottom: 15px;
+            z-index: 3;
+            color: #5d5d60;
+            font-family: var(--font-typewriter);
+            font-size: 7px;
+            letter-spacing: 1.1px;
+        }
+        .polaroid-img {
+            width: 100%;
+            height: 360px;
+            margin: 0;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.05) brightness(.76);
+            transform: scale(1.01);
+            transition: filter .55s ease, transform .55s ease;
+        }
+        .polaroid h3 {
+            position: relative;
+            margin: 0;
+            padding: 18px 18px 2px;
+            color: #fff;
+            font-size: 31px;
+            letter-spacing: 1.5px;
+        }
+        .polaroid p {
+            padding: 0 18px 22px;
+            color: var(--crimson-neon);
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+        .polaroid:hover {
+            transform: translateY(-7px) !important;
+            border-color: rgba(215,25,32,.5);
+            box-shadow: 0 28px 70px rgba(0,0,0,.45);
+        }
+        .polaroid:hover .polaroid-img {
+            filter: grayscale(12%) contrast(1.04) brightness(.9);
+            transform: scale(1.05);
+        }
+
+        /* Gallery */
+        .clubhouse-grid {
+            grid-template-columns: repeat(12, 1fr);
+            grid-auto-rows: 155px;
+            gap: 14px;
+        }
+        .clubhouse-item {
+            appearance: none;
+            padding: 0;
+            color: inherit;
+            text-align: left;
+            cursor: pointer;
+            border: 1px solid var(--line);
+        }
+        .clubhouse-item:nth-child(1) { grid-column: span 7; grid-row: span 3; }
+        .clubhouse-item:nth-child(2) { grid-column: span 5; grid-row: span 2; }
+        .clubhouse-item:nth-child(3) { grid-column: span 5; grid-row: span 2; }
+        .clubhouse-item:nth-child(4) { grid-column: span 7; grid-row: span 1; }
+        .clubhouse-img {
+            height: 100%;
+            filter: grayscale(80%) brightness(.72);
+        }
+        .clubhouse-item::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,.72), transparent 55%);
+            pointer-events: none;
+        }
+        .clubhouse-item:hover {
+            transform: none;
+            border-color: rgba(215,25,32,.55);
+            box-shadow: none;
+        }
+        .clubhouse-item:hover .clubhouse-img {
+            filter: grayscale(5%) brightness(.9);
+            transform: scale(1.035);
+        }
+        .gallery-index,
+        .gallery-view {
+            position: absolute;
+            z-index: 3;
+            bottom: 14px;
+            font-family: var(--font-typewriter);
+            letter-spacing: 1.4px;
+        }
+        .gallery-index {
+            left: 15px;
+            color: var(--crimson-neon);
+            font-size: 10px;
+        }
+        .gallery-view {
+            right: 15px;
+            color: #ddd;
+            font-size: 8px;
+            opacity: .4;
+            transform: translateY(4px);
+            transition: opacity .3s ease, transform .3s ease;
+        }
+        .clubhouse-item:hover .gallery-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Gallery lightbox */
+        .gallery-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 15000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 8%;
+            background: rgba(3,3,3,.96);
+            backdrop-filter: blur(16px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s ease, visibility .3s ease;
+        }
+        .gallery-lightbox.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .lightbox-stage {
+            width: min(1100px, 84vw);
+            display: grid;
+            gap: 12px;
+        }
+        .lightbox-stage img {
+            width: 100%;
+            max-height: 72vh;
+            object-fit: contain;
+            background: #080808;
+            border: 1px solid var(--line);
+            box-shadow: 0 30px 100px rgba(0,0,0,.6);
+        }
+        .lightbox-meta,
+        .lightbox-caption {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            color: #747474;
+            font-family: var(--font-typewriter);
+            font-size: 9px;
+            letter-spacing: 1.5px;
+        }
+        .lightbox-close,
+        .lightbox-arrow {
+            position: absolute;
+            border: 1px solid var(--line);
+            background: rgba(15,15,15,.7);
+            color: #ddd;
+            cursor: pointer;
+            transition: .25s;
+        }
+        .lightbox-close {
+            top: 26px;
+            right: 4%;
+            width: 46px;
+            height: 46px;
+            font-size: 28px;
+        }
+        .lightbox-arrow {
+            top: 50%;
+            width: 52px;
+            height: 52px;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+        .lightbox-prev { left: 3%; }
+        .lightbox-next { right: 3%; }
+        .lightbox-close:hover,
+        .lightbox-arrow:hover {
+            border-color: var(--crimson-neon);
+            color: #fff;
+            background: rgba(143,12,19,.45);
+        }
+
+        /* Operations */
+        #warehouse {
+            background:
+                linear-gradient(90deg, rgba(5,5,5,.96), rgba(5,5,5,.78)),
+                url('warehouse-bg.jpg') center/cover no-repeat;
+            border-top: 1px solid rgba(215,25,32,.42);
+            border-bottom: 1px solid rgba(215,25,32,.42);
+        }
+        .ops-container {
+            gap: clamp(45px, 7vw, 100px);
+        }
+        .ops-info h2 {
+            font-size: clamp(4rem, 6vw, 6rem);
+            line-height: .88;
+        }
+        .ops-info > p {
+            max-width: 620px;
+            color: #96928d;
+            line-height: 1.85;
+            margin-top: 24px;
+            font-size: 14px;
+        }
+        .ops-warning {
+            margin-top: 28px;
+            padding: 16px 18px;
+            border-left: 2px solid var(--crimson-neon);
+            background: rgba(143,12,19,.08);
+            color: #777;
+            font-family: var(--font-typewriter);
+            font-size: 10px;
+            line-height: 1.6;
+        }
+        .ops-warning span {
+            display: block;
+            color: #cfcac3;
+            margin-bottom: 5px;
+            letter-spacing: 1.3px;
+        }
+        .ops-action {
+            background: none;
+            padding: 0;
+            border: 0;
+            backdrop-filter: none;
+            text-align: left;
+        }
+        .terminal-card {
+            border: 1px solid rgba(255,255,255,.11);
+            background: rgba(8,8,9,.88);
+            box-shadow: 0 25px 80px rgba(0,0,0,.42);
+        }
+        .terminal-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 11px 14px;
+            border-bottom: 1px solid var(--line);
+            color: #666;
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            letter-spacing: 1.2px;
+        }
+        .terminal-dots { display: flex; gap: 5px; }
+        .terminal-dots i {
+            width: 5px; height: 5px; border-radius: 50%; background: #333;
+        }
+        .terminal-dots i:first-child { background: var(--crimson-neon); }
+        .terminal-body { padding: 30px; }
+        .terminal-title small {
+            color: var(--crimson-neon);
+            font-family: var(--font-typewriter);
+            font-size: 9px;
+            letter-spacing: 1.2px;
+        }
+        .terminal-title h3 {
+            margin-top: 7px;
+            font-size: 31px;
+            letter-spacing: 1px;
+        }
+        .terminal-grid {
+            margin-top: 26px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            border-top: 1px solid var(--line);
+            border-left: 1px solid var(--line);
+        }
+        .terminal-grid div {
+            padding: 15px;
+            display: grid;
+            gap: 7px;
+            border-right: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+        .terminal-grid span {
+            color: #5d5d5f;
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            letter-spacing: 1px;
+        }
+        .terminal-grid strong {
+            font-family: var(--font-typewriter);
+            font-size: 11px;
+            color: #c8c5bf;
+        }
+        .status-online {
+            color: #70b783 !important;
+            text-shadow: 0 0 12px rgba(112,183,131,.28);
+        }
+        .terminal-command {
+            margin: 20px 0;
+            padding: 13px 14px;
+            color: #737375;
+            background: #060607;
+            border: 1px solid rgba(255,255,255,.06);
+            font-family: var(--font-typewriter);
+            font-size: 10px;
+        }
+        .terminal-command span { color: var(--crimson-neon); }
+        .terminal-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 15px 17px;
+            background: var(--crimson);
+            letter-spacing: 1.5px;
+        }
+
+        /* Arcade */
+        #arcade {
+            background:
+                radial-gradient(circle at 85% 15%, rgba(143,12,19,.10), transparent 25%),
+                #070708;
+        }
+        .games-grid {
+            grid-template-columns: repeat(2, minmax(0,1fr));
+            gap: 20px;
+        }
+        .game-card {
+            background: #0f0f10;
+            border: 1px solid rgba(255,255,255,.08);
+        }
+        .game-card:hover {
+            border-color: rgba(215,25,32,.46);
+            transform: translateY(-6px);
+            box-shadow: 0 30px 60px rgba(0,0,0,.32);
+        }
+        .game-thumb { height: 280px; }
+        .game-thumb::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, #0f0f10, transparent 45%);
+        }
+        .game-thumb img {
+            filter: grayscale(80%) contrast(1.07);
+            opacity: .72;
+        }
+        .game-card:hover .game-thumb img {
+            filter: grayscale(10%);
+            opacity: .95;
+        }
+        .game-info { padding: 26px; }
+        .game-tag {
+            margin-bottom: 8px;
+            color: #777;
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            letter-spacing: 1.3px;
+        }
+        .game-info h3 {
+            font-size: 38px;
+            color: #f0ece5;
+            margin-bottom: 9px;
+        }
+        .game-info p {
+            color: #7d7b78;
+            font-size: 13px;
+            line-height: 1.75;
+        }
+        .game-info .btn-solid {
+            width: auto;
+            align-self: flex-start;
+            padding: 12px 22px;
+            border: 1px solid rgba(215,25,32,.6);
+            background: transparent;
+        }
+        .game-info .btn-solid:hover {
+            background: var(--crimson-neon);
+        }
+
+        /* Modals */
+        .arcade-modal-overlay,
+        .custom-alert-overlay {
+            background: rgba(3,3,3,.94);
+            backdrop-filter: blur(16px);
+        }
+        .arcade-modal-box,
+        .custom-alert-box {
+            border: 1px solid rgba(215,25,32,.58);
+            border-radius: 2px;
+            box-shadow: 0 30px 110px rgba(0,0,0,.75);
+        }
+        .close-arcade-btn {
+            top: -16px;
+            right: -16px;
+            border-radius: 0;
+            background: var(--crimson);
+        }
+        .custom-alert-box h3 { color: #fff; }
+        .custom-alert-box { border-left: 3px solid var(--crimson-neon); }
+
+        /* Recruitment */
+        #join {
+            background:
+                linear-gradient(120deg, #080808, #0d0d0f 65%, rgba(143,12,19,.13));
+            text-align: left;
+        }
+        .recruitment-shell {
+            display: grid;
+            grid-template-columns: .85fr 1.15fr;
+            gap: clamp(50px, 8vw, 110px);
+            align-items: center;
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+        .recruitment-intro h2 {
+            font-size: clamp(4.8rem, 7vw, 7.2rem);
+            line-height: .82;
+            margin-bottom: 24px;
+        }
+        .recruitment-intro > p {
+            color: #85827e;
+            line-height: 1.8;
+            max-width: 480px;
+            font-size: 14px;
+        }
+        .application-stamp {
+            width: 190px;
+            height: 190px;
+            margin-top: 38px;
+            border: 2px solid rgba(143,12,19,.48);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transform: rotate(-9deg);
+            color: rgba(215,25,32,.62);
+        }
+        .application-stamp span {
+            font-family: var(--font-head);
+            font-size: 24px;
+            letter-spacing: 4px;
+        }
+        .application-stamp strong {
+            font-family: var(--font-head);
+            font-size: 35px;
+            letter-spacing: 2px;
+        }
+        .application-stamp small {
+            font-family: var(--font-typewriter);
+            font-size: 7px;
+            letter-spacing: 1px;
+        }
+
+        .recruitment-form {
+            max-width: none;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background: #0d0d0f;
+            border: 1px solid rgba(255,255,255,.10);
+            border-left: 1px solid rgba(255,255,255,.10);
+            box-shadow: 0 30px 90px rgba(0,0,0,.35);
+        }
+        .form-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--line);
+            color: #5f5f61;
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            letter-spacing: 1.2px;
+        }
+        .recruitment-form form { padding: 30px; }
+        .numbered-field {
+            display: grid;
+            grid-template-columns: 42px 1fr;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+        .field-no {
+            padding-top: 28px;
+            color: var(--crimson-neon);
+            font-family: var(--font-typewriter);
+            font-size: 10px;
+        }
+        .field-content { min-width: 0; }
+        .form-group label {
+            color: #777;
+            font-size: 9px;
+            letter-spacing: 1.4px;
+        }
+        .form-group input,
+        .form-group textarea {
+            padding: 14px 0;
+            background: transparent;
+            border: 0;
+            border-bottom: 1px solid rgba(255,255,255,.12);
+            color: #ece9e3;
+            border-radius: 0;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-bottom-color: var(--crimson-neon);
+        }
+        .application-consent {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin: 8px 0 24px 54px;
+            color: #666;
+            font-size: 10px;
+            line-height: 1.6;
+            cursor: pointer;
+        }
+        .application-consent input {
+            margin-top: 3px;
+            accent-color: var(--crimson-neon);
+        }
+        .application-submit {
+            margin-left: 54px;
+            width: calc(100% - 54px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 18px;
+            letter-spacing: 1.5px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 34px 5%;
+            border-top: 1px solid rgba(255,255,255,.08);
+            background: #050505;
+        }
+        .footer-inner {
+            max-width: 1450px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 30px;
+            align-items: center;
+        }
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: left;
+        }
+        .footer-brand > div { display: grid; gap: 3px; }
+        .footer-brand strong {
+            font-family: var(--font-head);
+            font-size: 20px;
+            letter-spacing: 1.5px;
+        }
+        .footer-brand small {
+            color: #555;
+            font-size: 7px;
+            letter-spacing: 1.2px;
+        }
+        .footer-copy {
+            color: #555;
+            text-align: center;
+            line-height: 1.7;
+            font-size: 9px;
+        }
+        .back-top {
+            justify-self: end;
+            color: #777;
+            text-decoration: none;
+            font-size: 9px;
+            letter-spacing: 1.2px;
+        }
+        .back-top:hover { color: var(--crimson-neon); }
+
+        /* Better reveal */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(34px);
+            transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1);
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Accessibility focus */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 2px solid var(--crimson-neon);
+            outline-offset: 3px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            nav { padding-inline: 4%; }
+            .nav-links { gap: 18px; }
+            .nav-links a { font-size: 9px; }
+
+            .roster-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+            .lore-container,
+            .ops-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .recruitment-shell {
+                grid-template-columns: 1fr;
+            }
+            .application-stamp { width: 150px; height: 150px; }
+        }
+
+        @media (max-width: 860px) {
+            .section-padding { padding: 95px 6%; }
+
+            .menu-toggle { display: block; z-index: 3; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: min(340px, 86vw);
+                height: 100svh;
+                padding: 105px 30px 35px;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
+                background: rgba(8,8,8,.98);
+                border-left: 1px solid rgba(255,255,255,.08);
+                transform: translateX(105%);
+                transition: transform .38s cubic-bezier(.2,.7,.2,1);
+                backdrop-filter: blur(18px);
+            }
+            .nav-links.show { transform: translateX(0); }
+            .nav-links a {
+                display: block;
+                padding: 17px 4px;
+                border-bottom: 1px solid rgba(255,255,255,.07);
+                font-size: 12px;
+            }
+            .nav-links a::after { display: none; }
+            .nav-links .nav-cta {
+                margin-top: 18px;
+                text-align: center;
+                padding: 14px;
+                border-bottom: 1px solid rgba(215,25,32,.7);
+            }
+            .menu-toggle.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+            .menu-toggle.active span:nth-child(2) { opacity: 0; }
+            .menu-toggle.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+            .hero {
+                padding: 120px 6% 90px;
+                min-height: 680px;
+            }
+            .hero-title { font-size: clamp(4rem, 13vw, 7rem); }
+            .hero-copy { max-width: 560px; }
+            .hero-corner { display: none; }
+            .scroll-cue { left: 6%; }
+
+            .clubhouse-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-rows: 230px;
+            }
+            .clubhouse-item:nth-child(n) {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+            .games-grid { grid-template-columns: 1fr; }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-brand { justify-content: center; }
+            .back-top { justify-self: center; }
+        }
+
+        @media (max-width: 620px) {
+            .brand-sub { display: none; }
+            .brand-main { font-size: 21px; }
+            .brand-mark { width: 34px; height: 34px; }
+
+            .hero {
+                padding-top: 120px;
+                min-height: 720px;
+            }
+            .hero-kicker {
+                font-size: 8px;
+                letter-spacing: 1.8px;
+                gap: 8px;
+            }
+            .kicker-line { width: 22px; }
+            .hero-title { font-size: clamp(3.7rem, 17vw, 5.6rem); }
+            .hero-copy {
+                font-size: 13px;
+                line-height: 1.75;
+            }
+            .hero-meta { display: none; }
+            .hero-actions {
+                align-items: stretch;
+                flex-direction: column;
+                width: 100%;
+                max-width: 310px;
+            }
+            .btn-primary-cinematic { justify-content: space-between; }
+            .btn-ghost-cinematic { padding-left: 0; }
+            .scroll-cue span { display: none; }
+
+            .section-padding { padding: 82px 5%; }
+            .lore-video-container { min-height: 330px; }
+            .lore-stats { grid-template-columns: 1fr; }
+            .lore-stats div + div {
+                border-left: 0;
+                border-top: 1px solid var(--line);
+                padding-left: 0;
+            }
+
+            .roster-grid { grid-template-columns: 1fr; }
+            .polaroid-img { height: 420px; }
+
+            .clubhouse-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 250px;
+            }
+            .clubhouse-item:nth-child(n) { grid-column: 1; }
+
+            .terminal-grid { grid-template-columns: 1fr; }
+
+            .recruitment-form form { padding: 22px 18px; }
+            .numbered-field {
+                grid-template-columns: 30px 1fr;
+            }
+            .application-consent {
+                margin-left: 42px;
+            }
+            .application-submit {
+                margin-left: 42px;
+                width: calc(100% - 42px);
+            }
+            .application-stamp { display: none; }
+
+            .gallery-lightbox { padding: 70px 12px 30px; }
+            .lightbox-stage { width: 100%; }
+            .lightbox-arrow {
+                top: auto;
+                bottom: 18px;
+                transform: none;
+                width: 44px;
+                height: 44px;
+            }
+            .lightbox-prev { left: calc(50% - 52px); }
+            .lightbox-next { right: calc(50% - 52px); }
+            .lightbox-caption { padding-bottom: 55px; }
+
+            .cursor-dot, .cursor-ring { display: none !important; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+
     </style>
 </head>
 <body>
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-mark">BL</div>
+        <div class="loader-copy">
+            <strong>BLOODLINE MC</strong>
+            <span>LOS SANTOS / INITIALIZING</span>
+        </div>
+        <div class="loader-line"><i></i></div>
+    </div>
+
+    <div class="global-noise" aria-hidden="true"></div>
+    <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+    <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+    <div class="scroll-progress" id="scrollProgress"></div>
 
     <nav id="navbar">
-        <div class="logo"><span class="text-crimson">BLOODLINE</span> MC</div>
-        <div class="nav-links">
-            <a href="#hero">Home</a>
-            <a href="#lore">The Lore</a>
-            <a href="#roster">Roster</a>
-            <a href="#clubhouse">Clubhouse</a>
-            <a href="#warehouse">Warehouse</a>
-            <a href="#arcade">Arcade</a>
-            <a href="#join">Join Us</a>
+        <a href="#hero" class="logo" aria-label="Bloodline MC Home">
+            <span class="brand-mark">BL</span>
+            <span class="brand-copy">
+                <span class="brand-main"><span class="text-crimson">BLOODLINE</span> MC</span>
+                <span class="brand-sub">LOS SANTOS / ORIGINAL CHAPTER</span>
+            </span>
+        </a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#hero" data-nav="hero">Home</a>
+            <a href="#lore" data-nav="lore">Lore</a>
+            <a href="#roster" data-nav="roster">The Table</a>
+            <a href="#clubhouse" data-nav="clubhouse">Clubhouse</a>
+            <a href="#warehouse" data-nav="warehouse">Operations</a>
+            <a href="#arcade" data-nav="arcade">Arcade</a>
+            <a href="#join" data-nav="join" class="nav-cta">Join Us</a>
         </div>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
     <section id="hero" class="hero">
-        <video autoplay muted loop class="bg-video">
+        <video autoplay muted loop playsinline class="bg-video">
             <source src="hero-bg.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+
         <div class="video-overlay"></div>
+        <div class="hero-noise"></div>
+        <div class="hero-vignette"></div>
+
         <div class="hero-content">
-            <h1><span class="text-crimson">BOUND BY BLOOD</span>, RULE BY LOYALTY.</h1>
-            <p>Los Santos Original Chapter</p>
-            <a href="#lore" class="btn-neon">ENTER THE CLUBHOUSE</a>
+            <div class="hero-kicker reveal-line">
+                <span class="kicker-line"></span>
+                BLOODLINE MOTORCYCLE CLUB
+                <span class="kicker-line"></span>
+            </div>
+
+            <h1 class="hero-title">
+                <span>BOUND BY <em>BLOOD.</em></span>
+                <span>RULED BY LOYALTY.</span>
+            </h1>
+
+            <p class="hero-copy">
+                Los Santos Original Chapter — a brotherhood built on asphalt,
+                loyalty, and the code we choose to live by.
+            </p>
+
+            <div class="hero-meta">
+                <span>LOS SANTOS</span>
+                <i></i>
+                <span>ORIGINAL CHAPTER</span>
+                <i></i>
+                <span>EST. IN THE STREETS</span>
+            </div>
+
+            <div class="hero-actions">
+                <a href="#lore" class="btn-neon btn-primary-cinematic">
+                    <span>ENTER THE CLUBHOUSE</span>
+                    <b>↘</b>
+                </a>
+                <a href="#join" class="btn-ghost-cinematic">
+                    EARN YOUR CUT <span>→</span>
+                </a>
+            </div>
         </div>
+
+        <a href="#lore" class="scroll-cue" aria-label="Scroll to story">
+            <span>SCROLL TO ENTER</span>
+            <div class="scroll-line"><i></i></div>
+        </a>
+
+        <div class="hero-corner hero-corner-left">BLMC / LS</div>
+        <div class="hero-corner hero-corner-right">INDUSTRIAL NOIR</div>
     </section>
 
     <section id="lore" class="section-padding fade-in">
@@ -523,16 +1962,25 @@
                 </div>
             </div>
             <div class="lore-text">
-                <h2>OUR HISTORY</h2>
+                <div class="section-index">01 / ORIGIN</div>
+                <h2>OUR <span class="text-crimson">HISTORY</span></h2>
+                <p class="lore-quote">“The streets never lie.”</p>
                 <p>Jalanan Los Santos tidak pernah berbohong. Kami lahir dari debu, aspal, dan persaudaraan yang diikat oleh darah. Bloodline MC bukan sekadar kelompok motor, ini adalah tempat berlindung bagi mereka yang disingkirkan oleh kota. Kami memegang aturan kami sendiri, menguasai apa yang menjadi hak kami, dan melindungi keluarga kami dengan segala cara.</p>
+
+                <div class="lore-stats">
+                    <div><strong>LOS SANTOS</strong><span>HOME GROUND</span></div>
+                    <div><strong>ONE CODE</strong><span>LOYALTY FIRST</span></div>
+                    <div><strong>ONE TABLE</strong><span>ONE BROTHERHOOD</span></div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="roster" class="section-padding">
-        <div class="text-center fade-in">
-            <h2>THE TABLE</h2>
-            <p style="color: #888;">All member Bloodline Motorcycle Club.</p>
+        <div class="section-heading text-center fade-in">
+            <div class="section-index">02 / THE CLUB</div>
+            <h2>THE <span class="text-crimson">TABLE</span></h2>
+            <p>The officers who carry the patch, the code, and the weight of Bloodline MC.</p>
         </div>
         <div class="roster-grid fade-in">
             <div class="polaroid">
@@ -569,41 +2017,88 @@
     </section>
 
     <section id="clubhouse" class="section-padding fade-in">
-        <div class="text-center">
+        <div class="section-heading text-center">
+            <div class="section-index">03 / HOME GROUND</div>
             <h2>CLUBHOUSE <span class="text-crimson">GALLERY</span></h2>
-            <p style="color: #888;">Markas besar, garasi, dan tempat berkumpulnya keluarga besar Bloodline MC.</p>
+            <p>Markas besar, garasi, dan tempat berkumpulnya keluarga besar Bloodline MC.</p>
         </div>
         <div class="clubhouse-grid fade-in">
-            <div class="clubhouse-item"><img src="ch1.png" alt="View 1" class="clubhouse-img"></div>
-            <div class="clubhouse-item"><img src="ch2.png" alt="View 2" class="clubhouse-img"></div>
-            <div class="clubhouse-item"><img src="ch3.png" alt="View 3" class="clubhouse-img"></div>
-            <div class="clubhouse-item"><img src="ch4.png" alt="View 4" class="clubhouse-img"></div>
+            <button class="clubhouse-item" type="button" data-lightbox-index="0" aria-label="Open clubhouse image 1">
+                <img src="ch1.png" alt="Clubhouse archive 1" class="clubhouse-img">
+                <span class="gallery-index">01</span>
+                <span class="gallery-view">VIEW ARCHIVE ↗</span>
+            </button>
+            <button class="clubhouse-item" type="button" data-lightbox-index="1" aria-label="Open clubhouse image 2">
+                <img src="ch2.png" alt="Clubhouse archive 2" class="clubhouse-img">
+                <span class="gallery-index">02</span>
+                <span class="gallery-view">VIEW ARCHIVE ↗</span>
+            </button>
+            <button class="clubhouse-item" type="button" data-lightbox-index="2" aria-label="Open clubhouse image 3">
+                <img src="ch3.png" alt="Clubhouse archive 3" class="clubhouse-img">
+                <span class="gallery-index">03</span>
+                <span class="gallery-view">VIEW ARCHIVE ↗</span>
+            </button>
+            <button class="clubhouse-item" type="button" data-lightbox-index="3" aria-label="Open clubhouse image 4">
+                <img src="ch4.png" alt="Clubhouse archive 4" class="clubhouse-img">
+                <span class="gallery-index">04</span>
+                <span class="gallery-view">VIEW ARCHIVE ↗</span>
+            </button>
         </div>
     </section>
 
     <section id="warehouse" class="section-padding fade-in">
         <div class="ops-container">
             <div class="ops-info">
+                <div class="section-index">04 / INTERNAL NETWORK</div>
                 <h2>LOGISTICS & <span class="text-crimson">OPERATIONS</span></h2>
-                <p style="color:#aaa; line-height: 1.6; margin-top:20px;">
-                    Di balik gemuruh mesin, terdapat sistem logistik yang terstruktur. 
-                    Seluruh pergerakan senjata, stok gudang faksi, dan manajemen aset diatur melalui portal eksternal khusus.
-                    <br><br>
-                    <strong>Akses Khusus:</strong> Tombol di samping akan mengarahkan Anda ke sistem inventaris gudang utama yang terautentikasi. Pastikan Anda memiliki kredensial faksi yang sah.
+                <p>
+                    Di balik gemuruh mesin terdapat sistem logistik yang terstruktur.
+                    Seluruh pergerakan stok, gudang faksi, dan manajemen aset diarahkan
+                    melalui portal internal Bloodline MC.
                 </p>
+
+                <div class="ops-warning">
+                    <span>RESTRICTED ACCESS</span>
+                    Portal ini ditujukan untuk personel yang memiliki kredensial faksi yang sah.
+                </div>
             </div>
-            <div class="ops-action">
-                <h3 style="font-size: 2rem; margin-bottom: 15px; color: var(--crimson-neon);">SECURE PORTAL</h3>
-                <p style="color: #888; margin-bottom: 25px; font-family: var(--font-typewriter); font-size: 13px;">Klik tombol di bawah untuk menuju ke halaman manajemen gudang faksi.</p>
-                <a href="https://bloodline-mc.vercel.app/" target="_blank" class="btn-solid">AKSES WAREHOUSE SYSTEM</a>
+
+            <div class="ops-action terminal-card">
+                <div class="terminal-topbar">
+                    <span>BLOODLINE INTERNAL NETWORK</span>
+                    <span class="terminal-dots"><i></i><i></i><i></i></span>
+                </div>
+
+                <div class="terminal-body">
+                    <div class="terminal-title">
+                        <small>SECURE NODE / LS-01</small>
+                        <h3>OPERATIONS TERMINAL</h3>
+                    </div>
+
+                    <div class="terminal-grid">
+                        <div><span>SYSTEM STATUS</span><strong class="status-online">● ONLINE</strong></div>
+                        <div><span>WAREHOUSE NODE</span><strong>LS-01</strong></div>
+                        <div><span>ACCESS LEVEL</span><strong>RESTRICTED</strong></div>
+                        <div><span>CONNECTION</span><strong>ENCRYPTED</strong></div>
+                    </div>
+
+                    <div class="terminal-command">
+                        <span>&gt;</span> awaiting authorized rider...
+                    </div>
+
+                    <a href="https://bloodline-mc.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-solid terminal-btn">
+                        ACCESS OPERATIONS SYSTEM <span>↗</span>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="arcade" class="section-padding fade-in">
-        <div class="text-center">
-            <h2>THE <span class="text-crimson">ARCADE</span></h2>
-            <p style="color: #888;">Habiskan waktu di jalanan dengan mini-games retro persembahan Bloodline MC.</p>
+        <div class="section-heading text-center">
+            <div class="section-index">05 / MEMBERS AREA</div>
+            <h2>BLOODLINE <span class="text-crimson">ARCADE</span></h2>
+            <p>Mesin arcade clubhouse untuk rider yang masih punya energi setelah jalanan berhenti bicara.</p>
         </div>
         
         <div class="games-grid">
@@ -612,7 +2107,7 @@
                     <img src="game1.jpg" alt="Sandy Shores Run Thumb">
                 </div>
                 <div class="game-info">
-                    <h3>SANDY SHORES RUN</h3>
+                    <div class="game-tag">ARCADE / REFLEX</div><h3>SANDY SHORES RUN</h3>
                     <p>Tarik gas, hindari rintangan, dan cetak skor tertinggi. Buktikan refleksmu dari kelas Prospect hingga level President.</p>
                     <button class="btn-solid" onclick="openGame('sandyShores')">PLAY NOW</button>
                 </div>
@@ -623,7 +2118,7 @@
                     <img src="game2.jpg" alt="Bloodline Snake Thumb">
                 </div>
                 <div class="game-info">
-                    <h3>BLOODLINE SNAKE</h3>
+                    <div class="game-tag">ARCADE / CLASSIC</div><h3>BLOODLINE SNAKE</h3>
                     <p>Navigasi rute patroli jalanan, kumpulkan poin emas, dan jangan sampai menabrak dinding atau ekor sendiri.</p>
                     <button class="btn-solid" onclick="openGame('snakeGame')">PLAY NOW</button>
                 </div>
@@ -632,28 +2127,85 @@
     </section>
 
     <section id="join" class="section-padding fade-in">
-        <div class="text-center">
-            <h2>EARN YOUR CUT</h2>
-            <p style="color: #888;">Isi dokumen ini jika kamu ingin merasakan jalanan bersama kami.</p>
-        </div>
-        <div class="recruitment-form">
-            <form id="recruitmentForm">
-                <div class="form-group">
-                    <label>NAMA IN-CHARACTER</label>
-                    <input type="text" id="icName" required placeholder="Cth: James Sullivan">
+        <div class="recruitment-shell">
+            <div class="recruitment-intro">
+                <div class="section-index">06 / PROSPECT INTAKE</div>
+                <h2>EARN YOUR <span class="text-crimson">CUT</span></h2>
+                <p>
+                    Patch tidak diberikan. Patch diperoleh. Kirim identitas karaktermu
+                    untuk masuk ke meja petinggi Bloodline MC.
+                </p>
+
+                <div class="application-stamp">
+                    <span>BLMC</span>
+                    <strong>PROSPECT</strong>
+                    <small>APPLICATION / FORM 01</small>
                 </div>
-                <div class="form-group">
-                    <label>NAMA DISCORD</label>
-                    <input type="text" id="discordName" required placeholder="Cth: username#0000 / username">
+            </div>
+
+            <div class="recruitment-form">
+                <div class="form-header">
+                    <span>CONFIDENTIAL / INTERNAL USE</span>
+                    <span>FORM 01</span>
                 </div>
-                <div class="form-group">
-                    <label>MENGAPA INGIN MENJADI PROSPECT?</label>
-                    <textarea id="reason" rows="4" required placeholder="Ceritakan latar belakang karaktermu..."></textarea>
-                </div>
-                <button type="submit" class="btn-solid" id="submitBtn">SUBMIT TO THE TABLE</button>
-            </form>
+
+                <form id="recruitmentForm">
+                    <div class="form-group numbered-field">
+                        <span class="field-no">01</span>
+                        <div class="field-content">
+                            <label for="icName">NAMA IN-CHARACTER</label>
+                            <input type="text" id="icName" required placeholder="Cth: James Sullivan" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group numbered-field">
+                        <span class="field-no">02</span>
+                        <div class="field-content">
+                            <label for="discordName">NAMA DISCORD</label>
+                            <input type="text" id="discordName" required placeholder="Cth: username / username#0000" autocomplete="off">
+                        </div>
+                    </div>
+
+                    <div class="form-group numbered-field">
+                        <span class="field-no">03</span>
+                        <div class="field-content">
+                            <label for="reason">WHY BLOODLINE?</label>
+                            <textarea id="reason" rows="5" required placeholder="Ceritakan latar belakang karakter dan alasanmu ingin menjadi Prospect..."></textarea>
+                        </div>
+                    </div>
+
+                    <label class="application-consent">
+                        <input type="checkbox" required>
+                        <span>
+                            Saya memahami bahwa mengirim formulir ini tidak menjamin diterima
+                            sebagai anggota Bloodline MC.
+                        </span>
+                    </label>
+
+                    <button type="submit" class="btn-solid application-submit" id="submitBtn">
+                        SUBMIT APPLICATION <span>→</span>
+                    </button>
+                </form>
+            </div>
         </div>
     </section>
+
+
+    <div class="gallery-lightbox" id="galleryLightbox" aria-hidden="true">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close gallery">×</button>
+        <button class="lightbox-arrow lightbox-prev" id="lightboxPrev" aria-label="Previous image">←</button>
+
+        <div class="lightbox-stage">
+            <div class="lightbox-meta">
+                <span id="lightboxCounter">01 / 04</span>
+                <span>CLUBHOUSE ARCHIVE</span>
+            </div>
+            <img id="lightboxImage" src="ch1.png" alt="Clubhouse archive">
+            <div class="lightbox-caption">BLOODLINE MC / HOME GROUND / LOS SANTOS</div>
+        </div>
+
+        <button class="lightbox-arrow lightbox-next" id="lightboxNext" aria-label="Next image">→</button>
+    </div>
 
     <div id="arcadeModalOverlay" class="arcade-modal-overlay">
         <div class="arcade-modal-box">
@@ -696,8 +2248,22 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Bloodline MC Los Santos. All Rights Reserved.</p>
-        <p style="margin-top: 10px;">Discord: https://discord.gg/6WxS4X2Eha | In-Game Rules Apply.</p>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="brand-mark">BL</span>
+                <div>
+                    <strong><span class="text-crimson">BLOODLINE</span> MC</strong>
+                    <small>LOS SANTOS ORIGINAL CHAPTER</small>
+                </div>
+            </div>
+
+            <div class="footer-copy">
+                <p>© 2026 Bloodline MC Los Santos. All Rights Reserved.</p>
+                <p>Discord community • In-Game Rules Apply.</p>
+            </div>
+
+            <a href="#hero" class="back-top">BACK TO TOP ↑</a>
+        </div>
     </footer>
 
     <script>
@@ -707,7 +2273,7 @@
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
-                navbar.classList.add('scrolled');
+                navbar.classList.remove('scrolled');
             }
         });
 
@@ -1494,6 +3060,213 @@
                 submitBtn.innerText = "SUBMIT TO THE TABLE";
             });
         });
+
+        // =========================================================
+        // BLOODLINE MC v0.2 — CINEMATIC UX
+        // =========================================================
+
+        // Loader
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("pageLoader");
+            setTimeout(() => loader?.classList.add("loaded"), 350);
+        });
+
+        // Scroll progress
+        const scrollProgress = document.getElementById("scrollProgress");
+        function updateScrollProgress() {
+            const scrollTop = window.scrollY;
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
+            if (scrollProgress) scrollProgress.style.width = progress + "%";
+        }
+        window.addEventListener("scroll", updateScrollProgress, { passive: true });
+        updateScrollProgress();
+
+        // Mobile navigation
+        const menuToggle = document.getElementById("menuToggle");
+        const navLinksPanel = document.getElementById("navLinks");
+
+        function closeMobileNav() {
+            menuToggle?.classList.remove("active");
+            navLinksPanel?.classList.remove("show");
+            document.body.classList.remove("menu-open");
+            menuToggle?.setAttribute("aria-expanded", "false");
+        }
+
+        menuToggle?.addEventListener("click", () => {
+            const isOpen = navLinksPanel.classList.toggle("show");
+            menuToggle.classList.toggle("active", isOpen);
+            document.body.classList.toggle("menu-open", isOpen);
+            menuToggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.querySelectorAll(".nav-links a").forEach(link => {
+            link.addEventListener("click", closeMobileNav);
+        });
+
+        // Active nav section
+        const observedSections = [...document.querySelectorAll("section[id]")];
+        const navAnchors = [...document.querySelectorAll(".nav-links a[data-nav]")];
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                navAnchors.forEach(a => a.classList.toggle("active", a.dataset.nav === entry.target.id));
+            });
+        }, {
+            rootMargin: "-32% 0px -58% 0px",
+            threshold: 0
+        });
+
+        observedSections.forEach(section => navObserver.observe(section));
+
+        // Close menu when clicking outside
+        document.addEventListener("click", (e) => {
+            if (!navLinksPanel?.classList.contains("show")) return;
+            if (navLinksPanel.contains(e.target) || menuToggle.contains(e.target)) return;
+            closeMobileNav();
+        });
+
+        // Clubhouse gallery lightbox
+        const galleryItems = [...document.querySelectorAll(".clubhouse-item[data-lightbox-index]")];
+        const galleryLightbox = document.getElementById("galleryLightbox");
+        const lightboxImage = document.getElementById("lightboxImage");
+        const lightboxCounter = document.getElementById("lightboxCounter");
+        const lightboxClose = document.getElementById("lightboxClose");
+        const lightboxPrev = document.getElementById("lightboxPrev");
+        const lightboxNext = document.getElementById("lightboxNext");
+        const gallerySources = galleryItems.map(item => item.querySelector("img").getAttribute("src"));
+        let currentGalleryIndex = 0;
+
+        function renderLightbox() {
+            if (!gallerySources.length) return;
+            const src = gallerySources[currentGalleryIndex];
+            lightboxImage.src = src;
+            lightboxImage.alt = `Clubhouse archive ${currentGalleryIndex + 1}`;
+            lightboxCounter.textContent =
+                String(currentGalleryIndex + 1).padStart(2, "0") +
+                " / " +
+                String(gallerySources.length).padStart(2, "0");
+        }
+
+        function openLightbox(index) {
+            currentGalleryIndex = Number(index) || 0;
+            renderLightbox();
+            galleryLightbox.classList.add("show");
+            galleryLightbox.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+        }
+
+        function closeLightbox() {
+            galleryLightbox.classList.remove("show");
+            galleryLightbox.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+        }
+
+        function stepLightbox(direction) {
+            currentGalleryIndex =
+                (currentGalleryIndex + direction + gallerySources.length) % gallerySources.length;
+            renderLightbox();
+        }
+
+        galleryItems.forEach(item => {
+            item.addEventListener("click", () => openLightbox(item.dataset.lightboxIndex));
+        });
+        lightboxClose?.addEventListener("click", closeLightbox);
+        lightboxPrev?.addEventListener("click", () => stepLightbox(-1));
+        lightboxNext?.addEventListener("click", () => stepLightbox(1));
+        galleryLightbox?.addEventListener("click", (e) => {
+            if (e.target === galleryLightbox) closeLightbox();
+        });
+
+        // Keyboard modal UX
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeMobileNav();
+                if (galleryLightbox?.classList.contains("show")) closeLightbox();
+                if (arcadeModalOverlay?.classList.contains("show")) closeGame();
+                if (snakeModalOverlay?.classList.contains("show")) closeSnakeGame();
+                if (customAlertOverlay?.classList.contains("show")) closeCustomAlert();
+            }
+
+            if (galleryLightbox?.classList.contains("show")) {
+                if (e.key === "ArrowLeft") stepLightbox(-1);
+                if (e.key === "ArrowRight") stepLightbox(1);
+            }
+        });
+
+        // Custom cursor (desktop pointer devices only)
+        const cursorDot = document.getElementById("cursorDot");
+        const cursorRing = document.getElementById("cursorRing");
+
+        if (window.matchMedia("(pointer:fine)").matches && cursorDot && cursorRing) {
+            let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+
+            document.body.classList.add("cursor-ready");
+
+            window.addEventListener("mousemove", (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.transform = `translate(${mouseX - 2}px, ${mouseY - 2}px)`;
+            });
+
+            function animateCursor() {
+                ringX += (mouseX - ringX) * 0.16;
+                ringY += (mouseY - ringY) * 0.16;
+                cursorRing.style.transform = `translate(${ringX - 14}px, ${ringY - 14}px)`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            document.querySelectorAll("a, button, input, textarea, .clubhouse-item").forEach(el => {
+                el.addEventListener("mouseenter", () => document.body.classList.add("cursor-hover"));
+                el.addEventListener("mouseleave", () => document.body.classList.remove("cursor-hover"));
+            });
+        }
+
+        // Subtle hero parallax
+        const heroContent = document.querySelector(".hero-content");
+        const heroVideo = document.querySelector(".bg-video");
+        if (window.matchMedia("(pointer:fine)").matches) {
+            document.querySelector(".hero")?.addEventListener("mousemove", (e) => {
+                const rx = (e.clientX / window.innerWidth - .5);
+                const ry = (e.clientY / window.innerHeight - .5);
+                if (heroContent) {
+                    heroContent.style.transform =
+                        `translate3d(${rx * 8}px, ${ry * 5}px, 0)`;
+                }
+                if (heroVideo) {
+                    heroVideo.style.marginLeft = `${rx * -5}px`;
+                    heroVideo.style.marginTop = `${ry * -3}px`;
+                }
+            });
+        }
+
+        // Modal body lock for arcade / snake
+        const originalOpenGame = openGame;
+        openGame = function(gameId) {
+            originalOpenGame(gameId);
+            document.body.classList.add("modal-open");
+        };
+
+        const originalCloseGame = closeGame;
+        closeGame = function() {
+            originalCloseGame();
+            document.body.classList.remove("modal-open");
+        };
+
+        const originalOpenSnakeGame = openSnakeGame;
+        openSnakeGame = function() {
+            originalOpenSnakeGame();
+            document.body.classList.add("modal-open");
+        };
+
+        const originalCloseSnakeGame = closeSnakeGame;
+        closeSnakeGame = function() {
+            originalCloseSnakeGame();
+            document.body.classList.remove("modal-open");
+        };
+
     </script>
 </body>
 </html>
