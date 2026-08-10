@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloodline MC | Industrial Noir — Los Santos Original Chapter</title>
+    <title>Bloodline MC | Digital Clubhouse — Los Santos Original Chapter</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@700;900&family=Courier+Prime&family=Inter:wght@300;400;700&family=VT323&display=swap" rel="stylesheet">
     
     <style>
@@ -1851,11 +1851,848 @@
             }
         }
 
+
+        /* =========================================================
+           BLOODLINE MC v0.3 — DIGITAL CLUBHOUSE EXTENSIONS
+           ========================================================= */
+
+        /* Advanced hero scroll treatment */
+        .hero-content,
+        .hero-live-status,
+        .scroll-cue {
+            will-change: transform, opacity;
+        }
+        .hero-emblem-watermark {
+            position: absolute;
+            right: -1vw;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            font-family: var(--font-head);
+            font-size: min(34vw, 520px);
+            line-height: .8;
+            color: rgba(255,255,255,.018);
+            letter-spacing: -18px;
+            pointer-events: none;
+            user-select: none;
+        }
+        .hero-live-status {
+            position: absolute;
+            right: 4.5%;
+            bottom: 61px;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 9px 12px;
+            border: 1px solid rgba(255,255,255,.08);
+            background: rgba(5,5,5,.52);
+            backdrop-filter: blur(10px);
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            letter-spacing: 1px;
+            color: #777;
+        }
+        .hero-live-status strong {
+            color: #b9b7b2;
+            font-weight: 400;
+        }
+        .live-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #6fba82;
+            box-shadow: 0 0 10px rgba(111,186,130,.48);
+            animation: livePulse 1.7s ease-in-out infinite;
+        }
+        @keyframes livePulse {
+            0%,100% { opacity: .5; }
+            50% { opacity: 1; }
+        }
+
+        /* THE CODE */
+        .code-section {
+            background:
+                linear-gradient(90deg, rgba(7,7,8,.98), rgba(12,12,13,.98)),
+                repeating-linear-gradient(90deg, transparent 0 89px, rgba(255,255,255,.012) 89px 90px);
+            overflow: hidden;
+        }
+        .code-watermark {
+            position: absolute;
+            right: -20px;
+            top: 70px;
+            font-family: var(--font-head);
+            font-size: clamp(9rem, 25vw, 28rem);
+            color: rgba(255,255,255,.018);
+            letter-spacing: -8px;
+            pointer-events: none;
+        }
+        .code-heading {
+            position: relative;
+            z-index: 2;
+            max-width: 760px;
+            text-align: left;
+        }
+        .code-heading p {
+            margin: 0 !important;
+        }
+        .code-list {
+            position: relative;
+            z-index: 2;
+            border-top: 1px solid var(--line);
+        }
+        .code-rule {
+            display: grid;
+            grid-template-columns: 74px 1fr 40px;
+            gap: 22px;
+            align-items: center;
+            padding: 24px 18px 24px 0;
+            border-bottom: 1px solid var(--line);
+            transition: background .3s ease, padding-left .3s ease, border-color .3s ease;
+        }
+        .code-rule:hover {
+            padding-left: 18px;
+            background: linear-gradient(90deg, rgba(143,12,19,.14), transparent 72%);
+            border-bottom-color: rgba(215,25,32,.35);
+        }
+        .code-number {
+            color: var(--crimson-neon);
+            font-family: var(--font-typewriter);
+            font-size: 10px;
+            letter-spacing: 1.5px;
+        }
+        .code-rule h3 {
+            color: #e8e4dd;
+            font-size: clamp(25px, 3vw, 38px);
+            letter-spacing: 1.3px;
+        }
+        .code-rule p {
+            margin-top: 4px;
+            color: #717171;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+        .code-arrow {
+            color: #4d4d4f;
+            font-size: 18px;
+            transition: transform .3s ease, color .3s ease;
+        }
+        .code-rule:hover .code-arrow {
+            color: var(--crimson-neon);
+            transform: translate(4px, -4px);
+        }
+
+        /* Hierarchical roster */
+        .roster-grid {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            align-items: stretch;
+        }
+        .dossier-card {
+            appearance: none;
+            cursor: pointer;
+            font: inherit;
+        }
+        .hierarchy-president {
+            grid-column: 2 / span 4;
+        }
+        .hierarchy-officer {
+            grid-column: span 3;
+        }
+        .hierarchy-table {
+            grid-column: span 2;
+        }
+        .dossier-open {
+            position: absolute;
+            top: 16px;
+            right: 14px;
+            z-index: 4;
+            color: #d8d3cb;
+            font-family: var(--font-typewriter);
+            font-size: 7px;
+            letter-spacing: 1.1px;
+            opacity: 0;
+            transform: translateY(-4px);
+            transition: .28s ease;
+        }
+        .dossier-card:hover .dossier-open {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .hierarchy-president .polaroid-img {
+            height: 470px;
+        }
+
+        /* Member dossier */
+        .member-dossier-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 16000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 70px 8%;
+            background: rgba(3,3,3,.97);
+            backdrop-filter: blur(18px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .3s ease, visibility .3s ease;
+        }
+        .member-dossier-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .member-dossier {
+            width: min(1120px, 86vw);
+            max-height: 78vh;
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            border: 1px solid rgba(255,255,255,.11);
+            background: #0b0b0c;
+            box-shadow: 0 45px 130px rgba(0,0,0,.7);
+            overflow: hidden;
+        }
+        .dossier-photo-wrap {
+            position: relative;
+            min-height: 600px;
+            background: #090909;
+            overflow: hidden;
+        }
+        .dossier-photo-wrap::after {
+            content:"";
+            position:absolute;
+            inset:0;
+            background:linear-gradient(to top, rgba(5,5,5,.68), transparent 50%);
+            pointer-events:none;
+        }
+        .dossier-photo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(75%) contrast(1.07);
+        }
+        .dossier-photo-code {
+            position: absolute;
+            left: 20px;
+            bottom: 18px;
+            z-index: 2;
+            display: grid;
+            gap: 4px;
+            color: #8a8986;
+            font-family: var(--font-typewriter);
+            font-size: 8px;
+            letter-spacing: 1.2px;
+        }
+        .dossier-photo-code strong {
+            color: var(--crimson-neon);
+            font-size: 11px;
+        }
+        .dossier-content {
+            padding: 34px;
+            display: flex;
+            flex-direction: column;
+        }
+        .dossier-system-line {
+            display:flex;
+            justify-content:space-between;
+            padding-bottom:13px;
+            border-bottom:1px solid var(--line);
+            font-family:var(--font-typewriter);
+            font-size:8px;
+            letter-spacing:1.2px;
+            color:#5d5d5f;
+        }
+        .dossier-head {
+            padding: 35px 0 30px;
+        }
+        .dossier-head small {
+            color: var(--crimson-neon);
+            font-family: var(--font-typewriter);
+            font-size: 9px;
+            letter-spacing: 1.4px;
+        }
+        .dossier-head h2 {
+            margin-top: 7px;
+            font-size: clamp(4rem, 7vw, 6.5rem);
+            line-height: .83;
+        }
+        .dossier-head p {
+            margin-top: 20px;
+            color: #86837e;
+            line-height: 1.75;
+            font-size: 13px;
+            max-width: 560px;
+        }
+        .dossier-data-grid {
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            border-top:1px solid var(--line);
+            border-left:1px solid var(--line);
+        }
+        .dossier-data-grid div {
+            padding: 15px;
+            border-right:1px solid var(--line);
+            border-bottom:1px solid var(--line);
+            display:grid;
+            gap:6px;
+        }
+        .dossier-data-grid span {
+            color:#565658;
+            font-family:var(--font-typewriter);
+            font-size:8px;
+            letter-spacing:1px;
+        }
+        .dossier-data-grid strong {
+            color:#c8c5bf;
+            font-family:var(--font-typewriter);
+            font-size:11px;
+        }
+        .dossier-quote {
+            margin-top:auto;
+            padding-top:24px;
+            color:#d7d2ca;
+            font-family:var(--font-cinzel);
+            font-size:13px;
+        }
+        .dossier-footer-line {
+            margin-top:18px;
+            color:#4f4f51;
+            font-family:var(--font-typewriter);
+            font-size:7px;
+            letter-spacing:1.2px;
+        }
+        .dossier-close,
+        .dossier-nav {
+            position:absolute;
+            border:1px solid var(--line);
+            background:rgba(15,15,15,.72);
+            color:#ddd;
+            cursor:pointer;
+            transition:.25s;
+        }
+        .dossier-close {
+            top:26px;
+            right:4%;
+            width:46px;
+            height:46px;
+            font-size:28px;
+        }
+        .dossier-nav {
+            top:50%;
+            width:52px;
+            height:52px;
+            transform:translateY(-50%);
+            font-size:20px;
+        }
+        .dossier-prev { left:3%; }
+        .dossier-next { right:3%; }
+        .dossier-close:hover,
+        .dossier-nav:hover {
+            border-color:var(--crimson-neon);
+            background:rgba(143,12,19,.45);
+        }
+
+        /* Gallery metadata */
+        .gallery-caption-mini {
+            position:absolute;
+            z-index:3;
+            left:48px;
+            bottom:12px;
+            display:grid;
+            gap:2px;
+            pointer-events:none;
+        }
+        .gallery-caption-mini strong {
+            color:#ded9d1;
+            font-family:var(--font-head);
+            font-size:17px;
+            letter-spacing:1px;
+        }
+        .gallery-caption-mini small {
+            color:#6e6e70;
+            font-family:var(--font-typewriter);
+            font-size:7px;
+            letter-spacing:1px;
+        }
+
+        /* Animated terminal */
+        .terminal-live-log {
+            min-height:44px;
+        }
+        .terminal-caret {
+            color:var(--crimson-neon);
+            font-style:normal;
+            animation:caretBlink .75s steps(1,end) infinite;
+        }
+        @keyframes caretBlink { 50% { opacity:0; } }
+
+        /* Arcade profile */
+        .arcade-profile-panel {
+            margin: 12px 0 22px;
+            display:grid;
+            grid-template-columns:1.2fr .8fr;
+            gap:0;
+            border:1px solid var(--line);
+            background:linear-gradient(120deg, #0d0d0f, #101012);
+        }
+        .arcade-profile-main {
+            padding:24px;
+            border-right:1px solid var(--line);
+        }
+        .profile-label {
+            color:var(--crimson-neon);
+            font-family:var(--font-typewriter);
+            font-size:8px;
+            letter-spacing:1.3px;
+        }
+        .profile-name-row {
+            display:flex;
+            align-items:center;
+            gap:14px;
+            margin-top:7px;
+        }
+        .profile-name-row h3 {
+            font-size:38px;
+            color:#ebe7df;
+        }
+        .mini-action-btn {
+            border:1px solid rgba(255,255,255,.13);
+            background:transparent;
+            color:#878787;
+            padding:8px 10px;
+            font-family:var(--font-typewriter);
+            font-size:7px;
+            letter-spacing:1px;
+            cursor:pointer;
+        }
+        .mini-action-btn:hover {
+            color:#fff;
+            border-color:var(--crimson-neon);
+        }
+        .arcade-profile-main p {
+            margin-top:8px;
+            color:#666;
+            font-size:11px;
+        }
+        .arcade-profile-stats {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+        }
+        .arcade-profile-stats div {
+            padding:24px 15px;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            border-right:1px solid var(--line);
+        }
+        .arcade-profile-stats div:last-child { border-right:0; }
+        .arcade-profile-stats span {
+            color:#555;
+            font-family:var(--font-typewriter);
+            font-size:7px;
+            letter-spacing:1px;
+        }
+        .arcade-profile-stats strong {
+            margin-top:7px;
+            color:#e6e2da;
+            font-family:var(--font-head);
+            font-size:28px;
+        }
+
+        .achievement-strip {
+            margin-bottom:28px;
+            border:1px solid var(--line);
+            background:#0c0c0d;
+        }
+        .achievement-head {
+            display:flex;
+            justify-content:space-between;
+            padding:12px 15px;
+            border-bottom:1px solid var(--line);
+            color:#68686a;
+            font-family:var(--font-typewriter);
+            font-size:8px;
+            letter-spacing:1px;
+        }
+        .achievement-grid {
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+        }
+        .achievement-card {
+            padding:14px;
+            min-height:76px;
+            display:flex;
+            gap:11px;
+            align-items:center;
+            border-right:1px solid var(--line);
+            border-bottom:1px solid var(--line);
+            opacity:.36;
+            transition:.3s;
+        }
+        .achievement-card.unlocked {
+            opacity:1;
+            background:linear-gradient(120deg, rgba(143,12,19,.10), transparent);
+        }
+        .achievement-icon {
+            width:30px;
+            height:30px;
+            display:grid;
+            place-items:center;
+            border:1px solid #38383a;
+            color:#626264;
+            font-family:var(--font-typewriter);
+            font-size:8px;
+        }
+        .achievement-card.unlocked .achievement-icon {
+            border-color:rgba(215,25,32,.5);
+            color:var(--crimson-neon);
+        }
+        .achievement-card div { display:grid; gap:3px; }
+        .achievement-card strong {
+            color:#c7c4be;
+            font-size:10px;
+            letter-spacing:.7px;
+        }
+        .achievement-card small {
+            color:#5d5d5f;
+            font-size:8px;
+            line-height:1.4;
+        }
+
+        .rider-identity-overlay {
+            position:fixed;
+            inset:0;
+            z-index:17000;
+            display:grid;
+            place-items:center;
+            padding:20px;
+            background:rgba(3,3,3,.95);
+            backdrop-filter:blur(16px);
+            opacity:0;
+            visibility:hidden;
+            transition:.3s;
+        }
+        .rider-identity-overlay.show {
+            opacity:1;
+            visibility:visible;
+        }
+        .rider-identity-box {
+            width:min(460px, 100%);
+            padding:34px;
+            border:1px solid rgba(215,25,32,.45);
+            border-left:3px solid var(--crimson-neon);
+            background:#0c0c0e;
+            box-shadow:0 30px 100px rgba(0,0,0,.7);
+        }
+        .rider-identity-box h3 {
+            margin-top:8px;
+            font-size:42px;
+        }
+        .rider-identity-box p {
+            margin:8px 0 22px;
+            color:#777;
+            font-size:11px;
+            line-height:1.6;
+        }
+        .rider-identity-box input {
+            width:100%;
+            padding:14px 0;
+            border:0;
+            border-bottom:1px solid rgba(255,255,255,.16);
+            background:transparent;
+            color:#fff;
+            outline:none;
+            font-family:var(--font-typewriter);
+            font-size:18px;
+            text-transform:uppercase;
+        }
+        .rider-identity-box input:focus {
+            border-bottom-color:var(--crimson-neon);
+        }
+        .identity-actions {
+            margin-top:24px;
+            display:flex;
+            gap:10px;
+            align-items:center;
+        }
+        .identity-actions .btn-solid { width:auto; }
+        .identity-cancel {
+            border:0;
+            background:transparent;
+            color:#666;
+            font-family:var(--font-typewriter);
+            font-size:9px;
+            cursor:pointer;
+        }
+
+        /* Recruitment progress */
+        .application-progress-wrap {
+            padding:18px 30px 0;
+        }
+        .application-progress-head {
+            display:flex;
+            justify-content:space-between;
+            color:#656567;
+            font-family:var(--font-typewriter);
+            font-size:8px;
+            letter-spacing:1px;
+        }
+        .application-progress-head strong { color:var(--crimson-neon); }
+        .application-progress-track {
+            margin-top:9px;
+            height:2px;
+            background:#252527;
+            overflow:hidden;
+        }
+        .application-progress-track i {
+            display:block;
+            width:0;
+            height:100%;
+            background:var(--crimson-neon);
+            box-shadow:0 0 12px rgba(215,25,32,.4);
+            transition:width .3s ease;
+        }
+        .application-steps {
+            margin-top:10px;
+            display:flex;
+            justify-content:space-between;
+            color:#49494b;
+            font-family:var(--font-typewriter);
+            font-size:7px;
+            letter-spacing:.8px;
+        }
+        .application-steps span.active { color:#b7b3ad; }
+        .application-steps span.done { color:#6ea87b; }
+
+        /* Ambient audio */
+        .ambient-toggle {
+            position:fixed;
+            right:18px;
+            bottom:18px;
+            z-index:9000;
+            display:flex;
+            align-items:center;
+            gap:8px;
+            padding:9px 11px;
+            border:1px solid rgba(255,255,255,.09);
+            background:rgba(7,7,8,.76);
+            backdrop-filter:blur(12px);
+            color:#666;
+            font-family:var(--font-typewriter);
+            font-size:7px;
+            letter-spacing:1px;
+            cursor:pointer;
+        }
+        .ambient-toggle:hover,
+        .ambient-toggle.active {
+            color:#d6d2cb;
+            border-color:rgba(215,25,32,.45);
+        }
+        .ambient-icon {
+            color:var(--crimson-neon);
+            animation:ambientPulse 2s ease-in-out infinite;
+        }
+        .ambient-toggle:not(.active) .ambient-icon { animation:none; }
+        @keyframes ambientPulse {
+            50% { text-shadow:0 0 12px rgba(215,25,32,.8); }
+        }
+
+        /* Easter egg */
+        .easter-overlay {
+            position:fixed;
+            inset:0;
+            z-index:19000;
+            display:grid;
+            place-items:center;
+            padding:20px;
+            background:rgba(2,2,2,.98);
+            opacity:0;
+            visibility:hidden;
+            transition:.3s;
+        }
+        .easter-overlay.show {
+            opacity:1;
+            visibility:visible;
+        }
+        .easter-terminal {
+            width:min(560px,100%);
+            padding:38px;
+            border:1px solid rgba(215,25,32,.5);
+            background:
+                linear-gradient(rgba(143,12,19,.08), transparent),
+                #070708;
+            text-align:center;
+            box-shadow:0 0 100px rgba(143,12,19,.18);
+        }
+        .easter-terminal > span {
+            color:#666;
+            font-family:var(--font-typewriter);
+            font-size:8px;
+            letter-spacing:1.6px;
+        }
+        .easter-terminal h2 {
+            margin-top:14px;
+            color:var(--crimson-neon);
+            font-size:56px;
+            letter-spacing:2px;
+        }
+        .easter-terminal p {
+            margin-top:4px;
+            color:#b6b2ab;
+            font-family:var(--font-cinzel);
+            font-size:13px;
+        }
+        .easter-code {
+            margin:25px 0;
+            padding:12px;
+            border-top:1px solid var(--line);
+            border-bottom:1px solid var(--line);
+            color:#5b5b5d;
+            font-family:var(--font-typewriter);
+            font-size:9px;
+            letter-spacing:1px;
+        }
+        .easter-terminal .btn-solid {
+            width:auto;
+            padding-inline:28px;
+        }
+
+        @media (max-width: 1100px) {
+            .hierarchy-president { grid-column: 1 / -1; }
+            .hierarchy-officer { grid-column: span 3; }
+            .hierarchy-table { grid-column: span 2; }
+            .member-dossier { width:90vw; }
+            .arcade-profile-panel { grid-template-columns:1fr; }
+            .arcade-profile-main { border-right:0; border-bottom:1px solid var(--line); }
+        }
+
+        @media (max-width: 860px) {
+            .hero-live-status { right:6%; bottom:28px; }
+            .hero-live-status span:nth-of-type(2) { display:none; }
+
+            .roster-grid { grid-template-columns:repeat(2,1fr); }
+            .hierarchy-president,
+            .hierarchy-officer,
+            .hierarchy-table { grid-column:span 1; }
+            .hierarchy-president { grid-column:1/-1; }
+
+            .member-dossier {
+                grid-template-columns:1fr;
+                width:min(680px, 88vw);
+                max-height:82vh;
+                overflow:auto;
+            }
+            .dossier-photo-wrap { min-height:420px; }
+            .dossier-nav {
+                top:auto;
+                bottom:18px;
+                transform:none;
+                width:44px;
+                height:44px;
+            }
+            .dossier-prev { left:calc(50% - 52px); }
+            .dossier-next { right:calc(50% - 52px); }
+
+            .achievement-grid { grid-template-columns:repeat(2,1fr); }
+        }
+
+        @media (max-width: 620px) {
+            .hero-live-status { display:none; }
+            .code-rule {
+                grid-template-columns:38px 1fr 20px;
+                gap:10px;
+                padding-right:0;
+            }
+            .code-rule p { font-size:10px; }
+
+            .roster-grid { grid-template-columns:1fr; }
+            .hierarchy-president,
+            .hierarchy-officer,
+            .hierarchy-table { grid-column:1; }
+            .hierarchy-president .polaroid-img { height:420px; }
+
+            .member-dossier-overlay { padding:65px 12px 80px; }
+            .member-dossier { width:100%; }
+            .dossier-photo-wrap { min-height:360px; }
+            .dossier-content { padding:22px; }
+            .dossier-data-grid { grid-template-columns:1fr; }
+
+            .gallery-caption-mini {
+                left:44px;
+            }
+            .gallery-caption-mini strong { font-size:14px; }
+
+            .arcade-profile-stats { grid-template-columns:1fr 1fr 1fr; }
+            .arcade-profile-stats div { padding:15px 8px; }
+            .arcade-profile-stats strong { font-size:22px; }
+            .achievement-grid { grid-template-columns:1fr; }
+
+            .application-progress-wrap { padding:16px 18px 0; }
+            .application-steps {
+                gap:8px;
+                flex-wrap:wrap;
+            }
+
+            .ambient-toggle {
+                right:10px;
+                bottom:10px;
+            }
+        }
+
+
+        /* NAVBAR PNG LOGO — v0.3.1 */
+        .brand-logo-wrap {
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 46px;
+        }
+
+        .brand-logo-img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(215, 25, 32, .16));
+            transition: transform .3s ease, filter .3s ease;
+        }
+
+        .logo:hover .brand-logo-img {
+            transform: scale(1.06);
+            filter: drop-shadow(0 0 12px rgba(215, 25, 32, .28));
+        }
+
+        @media (max-width: 620px) {
+            .brand-logo-wrap {
+                width: 40px;
+                height: 40px;
+                flex-basis: 40px;
+            }
+        }
+
+
+        /* LOADING SCREEN PNG LOGO — v0.3.2 */
+        .loader-mark {
+            overflow: hidden;
+        }
+
+        .loader-logo-img {
+            width: 72%;
+            height: 72%;
+            object-fit: contain;
+            display: block;
+            transform: rotate(-45deg);
+            filter: drop-shadow(0 0 10px rgba(215, 25, 32, .18));
+        }
+
     </style>
 </head>
 <body>
     <div class="page-loader" id="pageLoader">
-        <div class="loader-mark">BL</div>
+        <div class="loader-mark">
+            <img src="logoblmc.png" alt="Bloodline MC Logo" class="loader-logo-img">
+        </div>
         <div class="loader-copy">
             <strong>BLOODLINE MC</strong>
             <span>LOS SANTOS / INITIALIZING</span>
@@ -1864,6 +2701,15 @@
     </div>
 
     <div class="global-noise" aria-hidden="true"></div>
+
+    <button class="ambient-toggle" id="ambientToggle" type="button" aria-pressed="false" title="Optional clubhouse ambience">
+        <span class="ambient-icon">◌</span>
+        <span id="ambientLabel">AMBIENCE OFF</span>
+    </button>
+    <audio id="ambientAudio" loop preload="none">
+        <source src="ambient.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
     <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
 
@@ -1871,7 +2717,9 @@
 
     <nav id="navbar">
         <a href="#hero" class="logo" aria-label="Bloodline MC Home">
-            <span class="brand-mark">BL</span>
+            <span class="brand-logo-wrap">
+                <img src="logoblmc.png" alt="Bloodline MC Logo" class="brand-logo-img">
+            </span>
             <span class="brand-copy">
                 <span class="brand-main"><span class="text-crimson">BLOODLINE</span> MC</span>
                 <span class="brand-sub">LOS SANTOS / ORIGINAL CHAPTER</span>
@@ -1881,6 +2729,7 @@
         <div class="nav-links" id="navLinks">
             <a href="#hero" data-nav="hero">Home</a>
             <a href="#lore" data-nav="lore">Lore</a>
+            <a href="#code" data-nav="code">Code</a>
             <a href="#roster" data-nav="roster">The Table</a>
             <a href="#clubhouse" data-nav="clubhouse">Clubhouse</a>
             <a href="#warehouse" data-nav="warehouse">Operations</a>
@@ -1902,6 +2751,7 @@
         <div class="video-overlay"></div>
         <div class="hero-noise"></div>
         <div class="hero-vignette"></div>
+        <div class="hero-emblem-watermark" aria-hidden="true">BL</div>
 
         <div class="hero-content">
             <div class="hero-kicker reveal-line">
@@ -1945,7 +2795,14 @@
         </a>
 
         <div class="hero-corner hero-corner-left">BLMC / LS</div>
-        <div class="hero-corner hero-corner-right">INDUSTRIAL NOIR</div>
+
+        <div class="hero-live-status">
+            <span class="live-dot"></span>
+            <span>LOS SANTOS CHAPTER</span>
+            <strong id="chapterClock">00:00:00</strong>
+        </div>
+
+        <div class="hero-corner hero-corner-right">DIGITAL CLUBHOUSE / v0.3</div>
     </section>
 
     <section id="lore" class="section-padding fade-in">
@@ -1976,49 +2833,146 @@
         </div>
     </section>
 
+
+    <section id="code" class="section-padding code-section fade-in">
+        <div class="code-watermark" aria-hidden="true">BLMC</div>
+
+        <div class="section-heading code-heading">
+            <div class="section-index">02 / THE CODE</div>
+            <h2>THE <span class="text-crimson">CODE</span></h2>
+            <p>Empat prinsip yang menjaga patch tetap berarti ketika jalanan mulai menguji siapa yang benar-benar berdiri bersama keluarga.</p>
+        </div>
+
+        <div class="code-list fade-in">
+            <article class="code-rule">
+                <span class="code-number">01</span>
+                <div>
+                    <h3>LOYALTY ABOVE EVERYTHING</h3>
+                    <p>Persaudaraan tidak berhenti ketika mesin dimatikan. Loyalitas tetap berdiri ketika keadaan berubah.</p>
+                </div>
+                <span class="code-arrow">↗</span>
+            </article>
+
+            <article class="code-rule">
+                <span class="code-number">02</span>
+                <div>
+                    <h3>RESPECT THE PATCH</h3>
+                    <p>Patch bukan dekorasi. Ia membawa nama, sejarah, dan tanggung jawab setiap orang yang mengenakannya.</p>
+                </div>
+                <span class="code-arrow">↗</span>
+            </article>
+
+            <article class="code-rule">
+                <span class="code-number">03</span>
+                <div>
+                    <h3>PROTECT THE BROTHERHOOD</h3>
+                    <p>Keluarga dijaga bersama. Tidak ada seorang pun yang berdiri sendiri ketika Bloodline ikut berdiri.</p>
+                </div>
+                <span class="code-arrow">↗</span>
+            </article>
+
+            <article class="code-rule">
+                <span class="code-number">04</span>
+                <div>
+                    <h3>THE TABLE HAS THE FINAL WORD</h3>
+                    <p>Keputusan besar kembali ke meja. Bukan ego pribadi, bukan suara jalanan, tetapi keputusan keluarga.</p>
+                </div>
+                <span class="code-arrow">↗</span>
+            </article>
+        </div>
+    </section>
+
     <section id="roster" class="section-padding">
         <div class="section-heading text-center fade-in">
-            <div class="section-index">02 / THE CLUB</div>
+            <div class="section-index">03 / THE CLUB</div>
             <h2>THE <span class="text-crimson">TABLE</span></h2>
             <p>The officers who carry the patch, the code, and the weight of Bloodline MC.</p>
         </div>
         <div class="roster-grid fade-in">
-            <div class="polaroid">
-                <img src="president.png" alt="President" class="polaroid-img">
+            <button class="polaroid dossier-card hierarchy-president" type="button"
+                data-member-index="0"
+                data-name="Bone Bextra"
+                data-role="PRESIDENT"
+                data-image="president.png"
+                data-position="PRESIDENT"
+                data-clearance="THE TABLE"
+                data-bio="Highest chapter authority and keeper of the Bloodline code.">
+                <img src="president.png" alt="PRESIDENT" class="polaroid-img">
+                <span class="dossier-open">OPEN DOSSIER ↗</span>
                 <h3>PRESIDENT</h3>
                 <p>Bone Bextra</p>
-            </div>
-            <div class="polaroid">
-                <img src="vp.png" alt="VP" class="polaroid-img">
+            </button>
+            <button class="polaroid dossier-card hierarchy-officer" type="button"
+                data-member-index="1"
+                data-name="Obby Chibs"
+                data-role="V. PRESIDENT"
+                data-image="vp.png"
+                data-position="VICE PRESIDENT"
+                data-clearance="THE TABLE"
+                data-bio="Second seat at the table and operational right hand of the President.">
+                <img src="vp.png" alt="V. PRESIDENT" class="polaroid-img">
+                <span class="dossier-open">OPEN DOSSIER ↗</span>
                 <h3>V. PRESIDENT</h3>
                 <p>Obby Chibs</p>
-            </div>
-            <div class="polaroid">
-                <img src="srgt.png" alt="Sgt" class="polaroid-img">
+            </button>
+            <button class="polaroid dossier-card hierarchy-officer" type="button"
+                data-member-index="2"
+                data-name="Ziel Suhadi"
+                data-role="SGT. AT ARMS"
+                data-image="srgt.png"
+                data-position="SGT. AT ARMS"
+                data-clearance="THE TABLE"
+                data-bio="Discipline, order, security, and enforcement inside the chapter.">
+                <img src="srgt.png" alt="SGT. AT ARMS" class="polaroid-img">
+                <span class="dossier-open">OPEN DOSSIER ↗</span>
                 <h3>SGT. AT ARMS</h3>
                 <p>Ziel Suhadi</p>
-            </div>
-            <div class="polaroid">
-                <img src="treasury1.png" alt="Treasury" class="polaroid-img">
+            </button>
+            <button class="polaroid dossier-card hierarchy-table" type="button"
+                data-member-index="3"
+                data-name="Kucluk Da Loca B"
+                data-role="TREASURY"
+                data-image="treasury1.png"
+                data-position="TREASURY"
+                data-clearance="THE TABLE"
+                data-bio="Financial oversight and chapter resource accountability.">
+                <img src="treasury1.png" alt="TREASURY" class="polaroid-img">
+                <span class="dossier-open">OPEN DOSSIER ↗</span>
                 <h3>TREASURY</h3>
                 <p>Kucluk Da Loca B</p>
-            </div>
-            <div class="polaroid">
-                <img src="treasury2.png" alt="Treasury" class="polaroid-img">
+            </button>
+            <button class="polaroid dossier-card hierarchy-table" type="button"
+                data-member-index="4"
+                data-name="Sean Du Noir"
+                data-role="TREASURY"
+                data-image="treasury2.png"
+                data-position="TREASURY"
+                data-clearance="THE TABLE"
+                data-bio="Financial oversight and chapter resource accountability.">
+                <img src="treasury2.png" alt="TREASURY" class="polaroid-img">
+                <span class="dossier-open">OPEN DOSSIER ↗</span>
                 <h3>TREASURY</h3>
                 <p>Sean Du Noir</p>
-            </div>
-            <div class="polaroid">
-                <img src="secretary.png" alt="Secretary" class="polaroid-img">
+            </button>
+            <button class="polaroid dossier-card hierarchy-table" type="button"
+                data-member-index="5"
+                data-name="YORU"
+                data-role="SECRETARY"
+                data-image="secretary.png"
+                data-position="SECRETARY"
+                data-clearance="THE TABLE"
+                data-bio="Records, internal documentation, and chapter administration.">
+                <img src="secretary.png" alt="SECRETARY" class="polaroid-img">
+                <span class="dossier-open">OPEN DOSSIER ↗</span>
                 <h3>SECRETARY</h3>
                 <p>YORU</p>
-            </div>
+            </button>
         </div>
     </section>
 
     <section id="clubhouse" class="section-padding fade-in">
         <div class="section-heading text-center">
-            <div class="section-index">03 / HOME GROUND</div>
+            <div class="section-index">04 / HOME GROUND</div>
             <h2>CLUBHOUSE <span class="text-crimson">GALLERY</span></h2>
             <p>Markas besar, garasi, dan tempat berkumpulnya keluarga besar Bloodline MC.</p>
         </div>
@@ -2026,21 +2980,25 @@
             <button class="clubhouse-item" type="button" data-lightbox-index="0" aria-label="Open clubhouse image 1">
                 <img src="ch1.png" alt="Clubhouse archive 1" class="clubhouse-img">
                 <span class="gallery-index">01</span>
+                <span class="gallery-caption-mini"><strong>MAIN CLUBHOUSE</strong><small>HOME GROUND / LOS SANTOS</small></span>
                 <span class="gallery-view">VIEW ARCHIVE ↗</span>
             </button>
             <button class="clubhouse-item" type="button" data-lightbox-index="1" aria-label="Open clubhouse image 2">
                 <img src="ch2.png" alt="Clubhouse archive 2" class="clubhouse-img">
                 <span class="gallery-index">02</span>
+                <span class="gallery-caption-mini"><strong>GARAGE FLOOR</strong><small>MACHINES / AFTER HOURS</small></span>
                 <span class="gallery-view">VIEW ARCHIVE ↗</span>
             </button>
             <button class="clubhouse-item" type="button" data-lightbox-index="2" aria-label="Open clubhouse image 3">
                 <img src="ch3.png" alt="Clubhouse archive 3" class="clubhouse-img">
                 <span class="gallery-index">03</span>
+                <span class="gallery-caption-mini"><strong>THE TABLE ROOM</strong><small>MEMBERS ONLY / INTERNAL</small></span>
                 <span class="gallery-view">VIEW ARCHIVE ↗</span>
             </button>
             <button class="clubhouse-item" type="button" data-lightbox-index="3" aria-label="Open clubhouse image 4">
                 <img src="ch4.png" alt="Clubhouse archive 4" class="clubhouse-img">
                 <span class="gallery-index">04</span>
+                <span class="gallery-caption-mini"><strong>NIGHT ARCHIVE</strong><small>LOS SANTOS / CHAPTER MEMORY</small></span>
                 <span class="gallery-view">VIEW ARCHIVE ↗</span>
             </button>
         </div>
@@ -2049,7 +3007,7 @@
     <section id="warehouse" class="section-padding fade-in">
         <div class="ops-container">
             <div class="ops-info">
-                <div class="section-index">04 / INTERNAL NETWORK</div>
+                <div class="section-index">05 / INTERNAL NETWORK</div>
                 <h2>LOGISTICS & <span class="text-crimson">OPERATIONS</span></h2>
                 <p>
                     Di balik gemuruh mesin terdapat sistem logistik yang terstruktur.
@@ -2082,8 +3040,8 @@
                         <div><span>CONNECTION</span><strong>ENCRYPTED</strong></div>
                     </div>
 
-                    <div class="terminal-command">
-                        <span>&gt;</span> awaiting authorized rider...
+                    <div class="terminal-command terminal-live-log" id="terminalLiveLog" aria-live="polite">
+                        <div>&gt; <span id="terminalTypedText">initializing network...</span><i class="terminal-caret">_</i></div>
                     </div>
 
                     <a href="https://bloodline-mc.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-solid terminal-btn">
@@ -2096,11 +3054,84 @@
 
     <section id="arcade" class="section-padding fade-in">
         <div class="section-heading text-center">
-            <div class="section-index">05 / MEMBERS AREA</div>
+            <div class="section-index">06 / MEMBERS AREA</div>
             <h2>BLOODLINE <span class="text-crimson">ARCADE</span></h2>
             <p>Mesin arcade clubhouse untuk rider yang masih punya energi setelah jalanan berhenti bicara.</p>
         </div>
         
+
+        <div class="arcade-profile-panel fade-in">
+            <div class="arcade-profile-main">
+                <span class="profile-label">ACTIVE RIDER</span>
+                <div class="profile-name-row">
+                    <h3 id="globalRiderName">UNIDENTIFIED</h3>
+                    <button type="button" id="editRiderBtn" class="mini-action-btn">IDENTIFY / EDIT</button>
+                </div>
+                <p>Identitas rider digunakan otomatis oleh seluruh mesin arcade pada perangkat ini.</p>
+            </div>
+
+            <div class="arcade-profile-stats">
+                <div>
+                    <span>BEST RUN</span>
+                    <strong id="profileBestRun">0</strong>
+                </div>
+                <div>
+                    <span>BEST SNAKE</span>
+                    <strong id="profileBestSnake">0</strong>
+                </div>
+                <div>
+                    <span>ACHIEVEMENTS</span>
+                    <strong id="profileAchievementCount">0/6</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="achievement-strip fade-in" id="achievementStrip">
+            <div class="achievement-head">
+                <span>RIDER ACHIEVEMENTS</span>
+                <small>Stored locally on this device</small>
+            </div>
+            <div class="achievement-grid">
+                <article class="achievement-card" data-achievement="FIRST_BLOOD">
+                    <span class="achievement-icon">01</span>
+                    <div><strong>FIRST BLOOD</strong><small>Score 5+ in Sandy Shores Run</small></div>
+                </article>
+                <article class="achievement-card" data-achievement="PATCHED_RIDER">
+                    <span class="achievement-icon">02</span>
+                    <div><strong>PATCHED RIDER</strong><small>Score 10+ in Sandy Shores Run</small></div>
+                </article>
+                <article class="achievement-card" data-achievement="ROAD_KING">
+                    <span class="achievement-icon">03</span>
+                    <div><strong>ROAD KING</strong><small>Score 20+ in Sandy Shores Run</small></div>
+                </article>
+                <article class="achievement-card" data-achievement="SNAKE_EYES">
+                    <span class="achievement-icon">04</span>
+                    <div><strong>SNAKE EYES</strong><small>Score 50+ in Bloodline Snake</small></div>
+                </article>
+                <article class="achievement-card" data-achievement="RED_TRAIL">
+                    <span class="achievement-icon">05</span>
+                    <div><strong>RED TRAIL</strong><small>Score 100+ in Bloodline Snake</small></div>
+                </article>
+                <article class="achievement-card" data-achievement="DUAL_MACHINE">
+                    <span class="achievement-icon">06</span>
+                    <div><strong>DUAL MACHINE</strong><small>Record a score in both arcade games</small></div>
+                </article>
+            </div>
+        </div>
+
+        <div class="rider-identity-overlay" id="riderIdentityOverlay" aria-hidden="true">
+            <div class="rider-identity-box">
+                <span class="profile-label">BLOODLINE ARCADE / LOCAL IDENTITY</span>
+                <h3>IDENTIFY YOURSELF</h3>
+                <p>Nama ini akan dipakai oleh Sandy Shores Run dan Bloodline Snake.</p>
+                <input type="text" id="globalRiderInput" maxlength="12" placeholder="Cth: BONE" autocomplete="off">
+                <div class="identity-actions">
+                    <button type="button" id="saveRiderBtn" class="btn-solid">SAVE RIDER ID →</button>
+                    <button type="button" id="cancelRiderBtn" class="identity-cancel">CANCEL</button>
+                </div>
+            </div>
+        </div>
+
         <div class="games-grid">
             <div class="game-card">
                 <div class="game-thumb">
@@ -2129,7 +3160,7 @@
     <section id="join" class="section-padding fade-in">
         <div class="recruitment-shell">
             <div class="recruitment-intro">
-                <div class="section-index">06 / PROSPECT INTAKE</div>
+                <div class="section-index">07 / PROSPECT INTAKE</div>
                 <h2>EARN YOUR <span class="text-crimson">CUT</span></h2>
                 <p>
                     Patch tidak diberikan. Patch diperoleh. Kirim identitas karaktermu
@@ -2147,6 +3178,19 @@
                 <div class="form-header">
                     <span>CONFIDENTIAL / INTERNAL USE</span>
                     <span>FORM 01</span>
+                </div>
+
+                <div class="application-progress-wrap">
+                    <div class="application-progress-head">
+                        <span>APPLICATION COMPLETION</span>
+                        <strong id="applicationProgressText">0%</strong>
+                    </div>
+                    <div class="application-progress-track"><i id="applicationProgressBar"></i></div>
+                    <div class="application-steps">
+                        <span id="stepIdentity">01 IDENTITY</span>
+                        <span id="stepBackground">02 BACKGROUND</span>
+                        <span id="stepDeclaration">03 DECLARATION</span>
+                    </div>
                 </div>
 
                 <form id="recruitmentForm">
@@ -2190,6 +3234,47 @@
         </div>
     </section>
 
+
+
+    <div class="member-dossier-overlay" id="memberDossierOverlay" aria-hidden="true">
+        <button class="dossier-close" id="dossierClose" aria-label="Close member dossier">×</button>
+        <button class="dossier-nav dossier-prev" id="dossierPrev" aria-label="Previous member">←</button>
+
+        <div class="member-dossier">
+            <div class="dossier-photo-wrap">
+                <img id="dossierPhoto" src="president.png" alt="Bloodline member">
+                <div class="dossier-photo-code">
+                    <span>BLOODLINE ARCHIVE</span>
+                    <strong id="dossierArchiveNo">BL-001</strong>
+                </div>
+            </div>
+
+            <div class="dossier-content">
+                <div class="dossier-system-line">
+                    <span>INTERNAL PERSONNEL FILE</span>
+                    <span class="status-online">● ACTIVE</span>
+                </div>
+
+                <div class="dossier-head">
+                    <small id="dossierRole">PRESIDENT</small>
+                    <h2 id="dossierName">BONE BEXTRA</h2>
+                    <p id="dossierBio">Bloodline MC personnel file.</p>
+                </div>
+
+                <div class="dossier-data-grid">
+                    <div><span>POSITION</span><strong id="dossierPosition">PRESIDENT</strong></div>
+                    <div><span>STATUS</span><strong>ACTIVE</strong></div>
+                    <div><span>CHAPTER</span><strong>LOS SANTOS</strong></div>
+                    <div><span>CLEARANCE</span><strong id="dossierClearance">THE TABLE</strong></div>
+                </div>
+
+                <div class="dossier-quote">“BOUND BY BLOOD. RULED BY LOYALTY.”</div>
+                <div class="dossier-footer-line">BLMC / PERSONNEL ARCHIVE / AUTHORIZED VIEW ONLY</div>
+            </div>
+        </div>
+
+        <button class="dossier-nav dossier-next" id="dossierNext" aria-label="Next member">→</button>
+    </div>
 
     <div class="gallery-lightbox" id="galleryLightbox" aria-hidden="true">
         <button class="lightbox-close" id="lightboxClose" aria-label="Close gallery">×</button>
@@ -2239,6 +3324,17 @@
         </div>
     </div>
 
+
+    <div class="easter-overlay" id="easterOverlay" aria-hidden="true">
+        <div class="easter-terminal">
+            <span>BLACK ARCHIVE / HIDDEN NODE</span>
+            <h2>ACCESS GRANTED</h2>
+            <p>THE MOTHER CHAPTER REMEMBERS.</p>
+            <div class="easter-code">BLOODLINE // 001 // LOS SANTOS</div>
+            <button type="button" id="easterClose" class="btn-solid">CLOSE ARCHIVE</button>
+        </div>
+    </div>
+
     <div id="customAlertOverlay" class="custom-alert-overlay">
         <div class="custom-alert-box">
             <h3 id="customAlertTitle">MESSAGE</h3>
@@ -2253,7 +3349,7 @@
                 <span class="brand-mark">BL</span>
                 <div>
                     <strong><span class="text-crimson">BLOODLINE</span> MC</strong>
-                    <small>LOS SANTOS ORIGINAL CHAPTER</small>
+                    <small>LOS SANTOS ORIGINAL CHAPTER / DIGITAL CLUBHOUSE</small>
                 </div>
             </div>
 
@@ -3266,6 +4362,415 @@
             originalCloseSnakeGame();
             document.body.classList.remove("modal-open");
         };
+
+
+        // =========================================================
+        // BLOODLINE MC v0.3 — DIGITAL CLUBHOUSE LOGIC
+        // =========================================================
+
+        // ---------- LIVE CHAPTER CLOCK ----------
+        const chapterClock = document.getElementById("chapterClock");
+        function updateChapterClock() {
+            if (!chapterClock) return;
+            const now = new Date();
+            chapterClock.textContent = new Intl.DateTimeFormat("en-GB", {
+                timeZone: "Asia/Jakarta",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false
+            }).format(now);
+        }
+        updateChapterClock();
+        setInterval(updateChapterClock, 1000);
+
+        // ---------- ADVANCED HERO SCROLL ----------
+        const heroSection = document.querySelector(".hero");
+        const heroContentV3 = document.querySelector(".hero-content");
+        const heroVideoV3 = document.querySelector(".bg-video");
+        const scrollCueV3 = document.querySelector(".scroll-cue");
+        const liveStatusV3 = document.querySelector(".hero-live-status");
+
+        function updateHeroScrollFx() {
+            if (!heroSection) return;
+            const max = Math.max(heroSection.offsetHeight, 1);
+            const progress = Math.min(window.scrollY / max, 1);
+
+            if (heroContentV3) {
+                heroContentV3.style.opacity = String(Math.max(1 - progress * 1.35, 0));
+                heroContentV3.style.transform =
+                    `translate3d(0, ${progress * -42}px, 0) scale(${1 - progress * .025})`;
+            }
+
+            if (heroVideoV3) {
+                heroVideoV3.style.opacity = String(Math.max(1 - progress * .38, .55));
+            }
+
+            if (scrollCueV3) scrollCueV3.style.opacity = String(Math.max(1 - progress * 3, 0));
+            if (liveStatusV3) liveStatusV3.style.opacity = String(Math.max(1 - progress * 2.2, 0));
+        }
+        window.addEventListener("scroll", updateHeroScrollFx, { passive:true });
+        updateHeroScrollFx();
+
+        // ---------- MEMBER DOSSIER ----------
+        const dossierOverlay = document.getElementById("memberDossierOverlay");
+        const dossierCards = [...document.querySelectorAll(".dossier-card")];
+        const dossierPhoto = document.getElementById("dossierPhoto");
+        const dossierRole = document.getElementById("dossierRole");
+        const dossierName = document.getElementById("dossierName");
+        const dossierBio = document.getElementById("dossierBio");
+        const dossierPosition = document.getElementById("dossierPosition");
+        const dossierClearance = document.getElementById("dossierClearance");
+        const dossierArchiveNo = document.getElementById("dossierArchiveNo");
+        const dossierClose = document.getElementById("dossierClose");
+        const dossierPrev = document.getElementById("dossierPrev");
+        const dossierNext = document.getElementById("dossierNext");
+        let activeDossierIndex = 0;
+
+        function renderDossier() {
+            const card = dossierCards[activeDossierIndex];
+            if (!card) return;
+
+            dossierPhoto.src = card.dataset.image;
+            dossierPhoto.alt = card.dataset.name;
+            dossierRole.textContent = card.dataset.role;
+            dossierName.textContent = card.dataset.name.toUpperCase();
+            dossierBio.textContent = card.dataset.bio;
+            dossierPosition.textContent = card.dataset.position;
+            dossierClearance.textContent = card.dataset.clearance;
+            dossierArchiveNo.textContent = "BL-" + String(activeDossierIndex + 1).padStart(3, "0");
+        }
+
+        function openDossier(index) {
+            activeDossierIndex = Number(index) || 0;
+            renderDossier();
+            dossierOverlay.classList.add("show");
+            dossierOverlay.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+        }
+
+        function closeDossier() {
+            dossierOverlay.classList.remove("show");
+            dossierOverlay.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+        }
+
+        function stepDossier(direction) {
+            activeDossierIndex =
+                (activeDossierIndex + direction + dossierCards.length) % dossierCards.length;
+            renderDossier();
+        }
+
+        dossierCards.forEach(card => {
+            card.addEventListener("click", () => openDossier(card.dataset.memberIndex));
+        });
+        dossierClose?.addEventListener("click", closeDossier);
+        dossierPrev?.addEventListener("click", () => stepDossier(-1));
+        dossierNext?.addEventListener("click", () => stepDossier(1));
+        dossierOverlay?.addEventListener("click", e => {
+            if (e.target === dossierOverlay) closeDossier();
+        });
+
+        // ---------- TERMINAL TYPEWRITER ----------
+        const terminalTypedText = document.getElementById("terminalTypedText");
+        const terminalLines = [
+            "initializing network...",
+            "authenticating node LS-01...",
+            "checking encrypted warehouse route...",
+            "system online.",
+            "awaiting authorized rider..."
+        ];
+        let terminalLineIndex = 0;
+        let terminalCharIndex = 0;
+        let terminalDeleting = false;
+
+        function runTerminalTypewriter() {
+            if (!terminalTypedText) return;
+
+            const current = terminalLines[terminalLineIndex];
+
+            if (!terminalDeleting) {
+                terminalCharIndex++;
+                terminalTypedText.textContent = current.slice(0, terminalCharIndex);
+
+                if (terminalCharIndex >= current.length) {
+                    terminalDeleting = true;
+                    setTimeout(runTerminalTypewriter, 1300);
+                    return;
+                }
+                setTimeout(runTerminalTypewriter, 38);
+            } else {
+                terminalCharIndex--;
+                terminalTypedText.textContent = current.slice(0, terminalCharIndex);
+
+                if (terminalCharIndex <= 0) {
+                    terminalDeleting = false;
+                    terminalLineIndex = (terminalLineIndex + 1) % terminalLines.length;
+                    setTimeout(runTerminalTypewriter, 280);
+                    return;
+                }
+                setTimeout(runTerminalTypewriter, 18);
+            }
+        }
+        setTimeout(runTerminalTypewriter, 700);
+
+        // ---------- UNIFIED ARCADE RIDER ID ----------
+        const RIDER_KEY = "blmc_global_rider_id_v03";
+        const globalRiderNameEl = document.getElementById("globalRiderName");
+        const riderIdentityOverlay = document.getElementById("riderIdentityOverlay");
+        const globalRiderInput = document.getElementById("globalRiderInput");
+        const editRiderBtn = document.getElementById("editRiderBtn");
+        const saveRiderBtn = document.getElementById("saveRiderBtn");
+        const cancelRiderBtn = document.getElementById("cancelRiderBtn");
+
+        function getGlobalRider() {
+            return (localStorage.getItem(RIDER_KEY) || "").trim();
+        }
+
+        function syncGlobalRiderToGames() {
+            const rider = getGlobalRider();
+            if (globalRiderNameEl) globalRiderNameEl.textContent = rider ? rider.toUpperCase() : "UNIDENTIFIED";
+
+            if (rider) {
+                playerName = rider.slice(0, 12);
+                snakePlayerName = rider.slice(0, 12);
+                if (snakeActiveRiderEl) snakeActiveRiderEl.innerText = snakePlayerName;
+            }
+        }
+
+        function showRiderIdentity(force = false) {
+            const rider = getGlobalRider();
+            if (globalRiderInput) globalRiderInput.value = rider;
+            riderIdentityOverlay?.classList.add("show");
+            riderIdentityOverlay?.setAttribute("aria-hidden", "false");
+            document.body.classList.add("modal-open");
+
+            if (force && globalRiderInput) {
+                setTimeout(() => globalRiderInput.focus(), 50);
+            }
+        }
+
+        function hideRiderIdentity() {
+            riderIdentityOverlay?.classList.remove("show");
+            riderIdentityOverlay?.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+        }
+
+        function saveGlobalRider() {
+            const value = (globalRiderInput?.value || "").trim().slice(0, 12);
+            if (!value) {
+                globalRiderInput?.focus();
+                return;
+            }
+            localStorage.setItem(RIDER_KEY, value);
+            syncGlobalRiderToGames();
+            computeAchievements();
+            hideRiderIdentity();
+        }
+
+        editRiderBtn?.addEventListener("click", () => showRiderIdentity(true));
+        saveRiderBtn?.addEventListener("click", saveGlobalRider);
+        cancelRiderBtn?.addEventListener("click", hideRiderIdentity);
+        globalRiderInput?.addEventListener("keydown", e => {
+            if (e.key === "Enter") saveGlobalRider();
+        });
+        riderIdentityOverlay?.addEventListener("click", e => {
+            if (e.target === riderIdentityOverlay) hideRiderIdentity();
+        });
+
+        syncGlobalRiderToGames();
+
+        // Intercept original arcade open flow so both games share rider identity
+        const openGameV03Base = openGame;
+        openGame = function(gameId) {
+            const rider = getGlobalRider();
+
+            if (!rider) {
+                showRiderIdentity(true);
+                return;
+            }
+
+            playerName = rider.slice(0, 12);
+            snakePlayerName = rider.slice(0, 12);
+
+            openGameV03Base(gameId);
+
+            if (gameId === "sandyShores") {
+                gameState = "MENU";
+            } else if (gameId === "snakeGame") {
+                snakeGameState = "MENU";
+                renderSnakeScreen();
+            }
+        };
+
+        // ---------- ARCADE PROFILE + ACHIEVEMENTS ----------
+        const profileBestRun = document.getElementById("profileBestRun");
+        const profileBestSnake = document.getElementById("profileBestSnake");
+        const profileAchievementCount = document.getElementById("profileAchievementCount");
+
+        function getBestScore(entries) {
+            if (!Array.isArray(entries) || !entries.length) return 0;
+            return Math.max(...entries.map(x => Number(x.score) || 0));
+        }
+
+        function computeAchievements() {
+            const rider = getGlobalRider().toUpperCase();
+            const riderRunScores = rider
+                ? highScores.filter(entry => String(entry.name || "").toUpperCase() === rider)
+                : [];
+            const riderSnakeScores = rider
+                ? snakeHighScores.filter(entry => String(entry.name || "").toUpperCase() === rider)
+                : [];
+
+            const bestRun = getBestScore(riderRunScores);
+            const bestSnake = getBestScore(riderSnakeScores);
+
+            const unlocked = {
+                FIRST_BLOOD: bestRun >= 5,
+                PATCHED_RIDER: bestRun >= 10,
+                ROAD_KING: bestRun >= 20,
+                SNAKE_EYES: bestSnake >= 50,
+                RED_TRAIL: bestSnake >= 100,
+                DUAL_MACHINE: bestRun > 0 && bestSnake > 0
+            };
+
+            document.querySelectorAll(".achievement-card").forEach(card => {
+                card.classList.toggle("unlocked", !!unlocked[card.dataset.achievement]);
+            });
+
+            const count = Object.values(unlocked).filter(Boolean).length;
+            if (profileBestRun) profileBestRun.textContent = bestRun;
+            if (profileBestSnake) profileBestSnake.textContent = bestSnake;
+            if (profileAchievementCount) profileAchievementCount.textContent = `${count}/6`;
+        }
+
+        computeAchievements();
+
+        const triggerGameOverV03Base = triggerGameOver;
+        triggerGameOver = function() {
+            triggerGameOverV03Base();
+            computeAchievements();
+        };
+
+        const endSnakeGameV03Base = endSnakeGame;
+        endSnakeGame = function() {
+            endSnakeGameV03Base();
+            computeAchievements();
+        };
+
+        // ---------- RECRUITMENT PROGRESS ----------
+        const progressBar = document.getElementById("applicationProgressBar");
+        const progressText = document.getElementById("applicationProgressText");
+        const stepIdentity = document.getElementById("stepIdentity");
+        const stepBackground = document.getElementById("stepBackground");
+        const stepDeclaration = document.getElementById("stepDeclaration");
+        const consentInput = document.querySelector(".application-consent input");
+        const icNameProgress = document.getElementById("icName");
+        const discordProgress = document.getElementById("discordName");
+        const reasonProgress = document.getElementById("reason");
+
+        function updateApplicationProgress() {
+            const identityDone =
+                (icNameProgress?.value.trim().length || 0) > 0 &&
+                (discordProgress?.value.trim().length || 0) > 0;
+            const backgroundDone = (reasonProgress?.value.trim().length || 0) >= 10;
+            const declarationDone = !!consentInput?.checked;
+
+            let completed = 0;
+            if (identityDone) completed++;
+            if (backgroundDone) completed++;
+            if (declarationDone) completed++;
+
+            const pct = Math.round((completed / 3) * 100);
+            if (progressBar) progressBar.style.width = pct + "%";
+            if (progressText) progressText.textContent = pct + "%";
+
+            stepIdentity?.classList.toggle("done", identityDone);
+            stepBackground?.classList.toggle("done", backgroundDone);
+            stepDeclaration?.classList.toggle("done", declarationDone);
+
+            stepIdentity?.classList.toggle("active", !identityDone);
+            stepBackground?.classList.toggle("active", identityDone && !backgroundDone);
+            stepDeclaration?.classList.toggle("active", identityDone && backgroundDone && !declarationDone);
+        }
+
+        [icNameProgress, discordProgress, reasonProgress].forEach(el => {
+            el?.addEventListener("input", updateApplicationProgress);
+        });
+        consentInput?.addEventListener("change", updateApplicationProgress);
+        updateApplicationProgress();
+
+        // ---------- OPTIONAL AMBIENCE ----------
+        const ambientToggle = document.getElementById("ambientToggle");
+        const ambientAudio = document.getElementById("ambientAudio");
+        const ambientLabel = document.getElementById("ambientLabel");
+        let ambienceOn = false;
+
+        async function toggleAmbience() {
+            if (!ambientAudio || !ambientToggle || !ambientLabel) return;
+
+            if (!ambienceOn) {
+                try {
+                    ambientAudio.volume = 0.16;
+                    await ambientAudio.play();
+                    ambienceOn = true;
+                    ambientToggle.classList.add("active");
+                    ambientToggle.setAttribute("aria-pressed", "true");
+                    ambientLabel.textContent = "AMBIENCE ON";
+                } catch (err) {
+                    ambientLabel.textContent = "ADD ambient.mp3";
+                    setTimeout(() => {
+                        if (!ambienceOn) ambientLabel.textContent = "AMBIENCE OFF";
+                    }, 1800);
+                }
+            } else {
+                ambientAudio.pause();
+                ambienceOn = false;
+                ambientToggle.classList.remove("active");
+                ambientToggle.setAttribute("aria-pressed", "false");
+                ambientLabel.textContent = "AMBIENCE OFF";
+            }
+        }
+        ambientToggle?.addEventListener("click", toggleAmbience);
+
+        // ---------- EASTER EGG: TYPE BLOODLINE ----------
+        const easterOverlay = document.getElementById("easterOverlay");
+        const easterClose = document.getElementById("easterClose");
+        let easterBuffer = "";
+        const easterWord = "BLOODLINE";
+
+        document.addEventListener("keydown", e => {
+            if (["INPUT","TEXTAREA"].includes(document.activeElement?.tagName)) return;
+
+            if (e.key.length === 1) {
+                easterBuffer = (easterBuffer + e.key.toUpperCase()).slice(-easterWord.length);
+                if (easterBuffer === easterWord) {
+                    easterOverlay?.classList.add("show");
+                    easterOverlay?.setAttribute("aria-hidden", "false");
+                    document.body.classList.add("modal-open");
+                    easterBuffer = "";
+                }
+            }
+
+            if (e.key === "Escape" && easterOverlay?.classList.contains("show")) {
+                easterOverlay.classList.remove("show");
+                easterOverlay.setAttribute("aria-hidden", "true");
+                document.body.classList.remove("modal-open");
+            }
+        });
+
+        easterClose?.addEventListener("click", () => {
+            easterOverlay?.classList.remove("show");
+            easterOverlay?.setAttribute("aria-hidden", "true");
+            document.body.classList.remove("modal-open");
+        });
+
+        // Extend existing ESC handler behavior for dossier / rider identity
+        document.addEventListener("keydown", e => {
+            if (e.key !== "Escape") return;
+            if (dossierOverlay?.classList.contains("show")) closeDossier();
+            if (riderIdentityOverlay?.classList.contains("show")) hideRiderIdentity();
+        });
 
     </script>
 </body>
